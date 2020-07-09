@@ -13,6 +13,7 @@ import {
   fetchUserListings,
 } from "../../src/store/actions/userActions/userActions";
 import Alert from "@material-ui/lab/Alert";
+import Loader from "../../src/ui/Loader";
 
 const useStyles = makeStyles((theme) => ({
   listingWrapper: {
@@ -82,9 +83,6 @@ const UserFavourites = ({
     <Fragment>
       {authenticated && (
           <Grid container direction={"column"} alignItems={"center"}>
-            <Backdrop open={loading}>
-              <CircularProgress color={"inherit"} />
-            </Backdrop>
             <Grid
                 item
                 container
@@ -104,7 +102,9 @@ const UserFavourites = ({
                   </Grid>
               )}
 
-              {userListings &&
+              {loading && <Loader pageLoader/>}
+
+              {!loading && userListings &&
               userListings.map((listing) => (
                   <ListingItem key={listing.id} listing={listing} />
               ))}

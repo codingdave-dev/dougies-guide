@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from "react";
+import React, { Fragment, useEffect } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -10,6 +10,7 @@ import Router, { withRouter } from "next/router";
 import { fetchAllListings } from "../../src/store/actions/listingActions/listingActions";
 import { fetchUserFavourites } from "../../src/store/actions/userActions/userActions";
 import Alert from "@material-ui/lab/Alert";
+import Loader from "../../src/ui/Loader";
 
 const useStyles = makeStyles((theme) => ({
   listingWrapper: {
@@ -72,15 +73,14 @@ const UserFavourites = ({
   fetchUserFavourites,
   favourites,
   loading,
-    auth,
+  auth,
   profile,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-
   const authenticated =
-      auth.isLoaded && !auth.isEmpty && profile.isLoaded && !profile.isEmpty;
+    auth.isLoaded && !auth.isEmpty && profile.isLoaded && !profile.isEmpty;
   const userId = router.query.id;
 
   useEffect(() => {
@@ -89,41 +89,40 @@ const UserFavourites = ({
     }
     fetchAllListings();
     fetchUserFavourites(userId);
-  }, [authenticated,fetchAllListings, fetchUserFavourites, userId]);
-
+  }, [authenticated, fetchAllListings, fetchUserFavourites, userId]);
 
   return (
     <Fragment>
       {authenticated && (
-          <Grid container direction={"column"} alignItems={"center"}>
-            <Backdrop open={loading}>
-              <CircularProgress color={"inherit"} />
-            </Backdrop>
-            <Grid
-                item
-                container
-                direction={"column"}
-                alignItems={"center"}
-                className={classes.listingWrapper}
-            >
-              <Grid item>
-                <Typography variant={"h1"} className={classes.title}>
-                  {profile.firstName}'s Favourites
-                </Typography>
-              </Grid>
-
-              {favourites.length < 1 && (
-                  <Grid item style={{ marginTop: "1em" }}>
-                    <Alert severity="error">No Favourites found.</Alert>
-                  </Grid>
-              )}
-
-              {favourites &&
-              favourites.map((listing) => (
-                  <ListingItem key={listing.id} listing={listing} />
-              ))}
+        <Grid container direction={"column"} alignItems={"center"}>
+          <Grid
+            item
+            container
+            direction={"column"}
+            alignItems={"center"}
+            className={classes.listingWrapper}
+          >
+            <Grid item>
+              <Typography variant={"h1"} className={classes.title}>
+                {profile.firstName}'s Favourites
+              </Typography>
             </Grid>
+
+            {favourites.length < 1 && (
+              <Grid item style={{ marginTop: "1em" }}>
+                <Alert severity="error">No Favourites found.</Alert>
+              </Grid>
+            )}
+
+            {loading && <Loader pageLoader />}
+
+            {!loading &&
+              favourites &&
+              favourites.map((listing) => (
+                <ListingItem key={listing.id} listing={listing} />
+              ))}
           </Grid>
+        </Grid>
       )}
     </Fragment>
   );

@@ -13,6 +13,7 @@ import {
   fetchUserFavourites,
 } from "../../src/store/actions/userActions/userActions";
 import Alert from "@material-ui/lab/Alert";
+import Loader from "../../src/ui/Loader";
 
 const useStyles = makeStyles((theme) => ({
   listingWrapper: {
@@ -119,7 +120,9 @@ const UserFavourites = ({
                     </Grid>
                 )}
 
-                {checkins &&
+                {loading && <Loader pageLoader/>}
+
+                {!loading && checkins &&
                 checkins.map((listing) => (
                     <ListingItem key={listing.id} listing={listing} />
                 ))}

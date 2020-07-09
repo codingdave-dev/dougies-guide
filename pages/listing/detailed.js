@@ -23,6 +23,7 @@ import { openDialog } from "../../src/store/actions/dialogActions/dialogActions"
 import DetailedInfomation from "../../src/ui/listing/detailed/DetailedInfomation";
 import DetailedActivities from "../../src/ui/listing/detailed/DetailedActivities";
 import DetailedExtras from "../../src/ui/listing/detailed/DetailedExtras";
+import Loader from "../../src/ui/Loader";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -234,10 +235,8 @@ const ListingDetailed = ({
 
   return (
     <Grid container direction={"column"} alignItems={"center"}>
-      <Backdrop open={loading}>
-        <CircularProgress color={"inherit"} />
-      </Backdrop>
 
+      {loading && <Loader pageLoader/>}
       {/*PHOTO & ADDRESS*/}
       {!loading &&
         listingDetailed &&

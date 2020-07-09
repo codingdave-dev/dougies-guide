@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import ListingItem from "../src/ui/listing/listingItem/ListingItem";
+import Loader from "../src/ui/Loader";
 
 const useStyles = makeStyles((theme) => ({
   listingWrapper: {
@@ -69,9 +70,6 @@ const Listings = ({
 
   return (
     <Grid container direction={"column"} alignItems={"center"}>
-      <Backdrop open={loading}>
-        <CircularProgress color={"inherit"} />
-      </Backdrop>
       <Grid
         item
         container
@@ -85,7 +83,10 @@ const Listings = ({
           </Typography>
         </Grid>
 
-        {allApprovedListings &&
+        {loading && <Loader pageLoader />}
+
+        {!loading &&
+          allApprovedListings &&
           allApprovedListings.map((listing) => (
             <ListingItem key={listing.id} listing={listing} />
           ))}

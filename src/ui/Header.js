@@ -450,6 +450,31 @@ const Header = ({
             </ListItem>
           ))}
 
+          {authenticated && authenticated && isAdmin && (
+              <div style={{marginTop: '1em'}}>
+                {adminAuthRoutes.map((route) => (
+                    <ListItem
+                        key={`${route}${route.activeIndex}`}
+                        onClick={() => {
+                          setOpenDrawer(false);
+                          setValue(route.activeIndex);
+                          setSelectedIndex(null);
+                        }}
+                        divider
+                        button
+                        component={Link}
+                        href={route.link}
+                        selected={value === route.activeIndex}
+                        classes={{ selected: classes.drawerItemSelected }}
+                    >
+                      <ListItemText className={classes.drawerItem} disableTypography>
+                        {route.name}
+                      </ListItemText>
+                    </ListItem>
+                ))}
+              </div>
+          )}
+
           {authenticated && authenticated && (
               <div style={{marginTop: '1em'}}>
                 {authRoutes.map((route) => (

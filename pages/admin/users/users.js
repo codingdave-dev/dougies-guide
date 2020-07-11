@@ -43,11 +43,11 @@ const mapStateToProps = (state) => {
 const userRoutes = [
   {
     id: 1,
-    name: "All Admins",
+    name: "Admins",
   },
   {
     id: 2,
-    name: "All Users",
+    name: "Users",
   },
   {
     id: 3,

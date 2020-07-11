@@ -4,9 +4,9 @@ import { Grid } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Router from "next/router";
 import Typography from "@material-ui/core/Typography";
-import Rating from "@material-ui/lab/Rating";
+
 import format from "date-fns/format";
-import CreateIcon from "@material-ui/icons/Create";
+
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
       width: 70,
     },
   },
-  userTitle: {
+  listingTitle: {
     fontSize: "1.5em",
     [theme.breakpoints.down("md")]: {
       fontSize: "1.2em",
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "0.9em",
     },
   },
-  userSubText: {
+  listingSubText: {
     fontSize: "0.98em",
     [theme.breakpoints.down("md")]: {
       fontSize: "1em",
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin }) => {
+const ListingItem = ({ listing, toggleListingApprove, deleteListing, deletePhotos }) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -63,74 +63,50 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
         item
         onClick={() => {
           Router.push({
-            pathname: "/profile/userProfile",
-            query: { id: user.uid },
+            pathname: "/listing/detailed",
+            query: { id: listing.id },
           });
         }}
       >
         <img
           className={classes.image}
-          src={user.photoURL}
-          alt={`${user.fullName} photo`}
+          src={listing.photoURL}
+          alt={`${listing.title} photo`}
         />
       </Grid>
 
       <Grid item style={{ marginLeft: 15 }}>
         <Grid item container direction={"column"}>
           <Grid item>
-            <Typography variant={"h5"} className={classes.userTitle}>
-              {user.fullName}
+            <Typography variant={"h5"} className={classes.listingTitle}>
+              {listing.title}
             </Typography>
           </Grid>
 
-          {user.admin && (
-            <Grid item>
-              <Typography variant={"body1"} className={classes.userSubText}>
-                Administrator
-              </Typography>
-            </Grid>
-          )}
-          {!user.admin && (
-            <Grid item>
-              <Typography variant={"body1"} className={classes.userSubText}>
-                User
-              </Typography>
-            </Grid>
-          )}
+          <Grid item>
+            <Typography variant={"body1"} className={classes.listingSubText}>
+              Added By: {listing.addedBy}
+            </Typography>
+          </Grid>
 
-          <Grid item style={{marginTop: '0.3em'}}>
-            <Typography variant={"body1"} className={classes.userSubText}>
-              Member Since - {format(user.createdAt.toDate(), "do LLLL yyyy")}
+          <Grid item style={{ marginTop: "0.3em" }}>
+            <Typography variant={"body1"} className={classes.listingSubText}>
+              Created - {format(listing.createdAt.toDate(), "do LLLL yyyy")}
             </Typography>
           </Grid>
 
           {/*BUTTONS*/}
           <Grid item style={{ marginTop: "0.8em" }}>
             <Grid item container>
-              {!user.disabled && (
-                  <Grid item style={{ marginRight: "0.5em" }}>
-                    <Button
-                        variant="outlined"
-                        size={"small"}
-                        style={{ color: theme.palette.primary.main }}
-                        fullWidth
-                        onClick={() => toggleUserType(user.uid, user.admin)}
-                    >
-                      {user.admin ? "Make User" : "Make Admin"}
-                    </Button>
-                  </Grid>
-              )}
-
-
               <Grid item style={{ marginRight: "0.5em" }}>
                 <Button
                   variant="outlined"
                   size={"small"}
-                  style={{ color: theme.palette.error.main }}
+                  style={{ color: theme.palette.primary.main }}
                   fullWidth
-                  onClick={() => toggleUserDisable(user.uid, user.disabled)}
+                  onClick={() => toggleListingApprove(listing.id, listing.approved)}
                 >
-                  {user.disabled ? "Enable" : "Disable"}
+                  {listing.approved ? "Unapprove" : "Approve"}
                 </Button>
               </Grid>
 
@@ -140,11 +116,12 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
                   size={"small"}
                   style={{ color: theme.palette.error.main }}
                   fullWidth
-                  onClick={() => deleteUser(user.id, user.photoName, isAdmin)}
+                  onClick={() => deleteListing(listing.id, listing.photoName, listing.photoURL)}
                 >
                   Delete
                 </Button>
               </Grid>
+
             </Grid>
           </Grid>
         </Grid>
@@ -153,4 +130,4 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
   );
 };
 
-export default UserItem;
+export default ListingItem;

@@ -1,7 +1,7 @@
 // CREATE NEW LISTING HELPER
 export const createNewListingHelper = (user, createdAt, photoURL, values) => {
     return {
-        createAt: createdAt,
+        createdAt: createdAt,
         addedBy: user.displayName,
         addedByUid: user.uid,
         approved: false,

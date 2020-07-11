@@ -32,8 +32,8 @@ const NewListing = ({createNewListing, handleSubmit}) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [listingDetails, setListingDetails] = useState(false);
-  const [listingInfo, setListingInfo] = useState(true);
+  const [listingDetails, setListingDetails] = useState(true);
+  const [listingInfo, setListingInfo] = useState(false);
   const [listingDescription, setListingDescription] = useState(false);
 
   const onFormSubmit = async (values) => {

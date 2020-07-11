@@ -14,7 +14,7 @@ import {
   fetchAllUsers,
   fetchApprovedUsers,
   fetchUnapprovedUsers, toggleUserDisable, toggleUserType
-} from "../../../src/store/actions/adminActions/adminActions";
+} from "../../../src/store/actions/adminActions/adminUserActions";
 import AllAdmins from "./allAdmins";
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +59,7 @@ const userRoutes = [
   },
 ];
 
-const Users = ({profile, fetchAllAdmins, fetchAllUsers, fetchApprovedUsers, fetchUnapprovedUsers, toggleUserType, toggleUserDisable, deleteUser}) => {
+const AdminUsers = ({profile, fetchAllAdmins, fetchAllUsers, fetchApprovedUsers, fetchUnapprovedUsers, toggleUserType, toggleUserDisable, deleteUser}) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -113,4 +113,4 @@ const Users = ({profile, fetchAllAdmins, fetchAllUsers, fetchApprovedUsers, fetc
   );
 };
 
-export default connect(mapStateToProps, actions)(Users);
+export default connect(mapStateToProps, actions)(AdminUsers);

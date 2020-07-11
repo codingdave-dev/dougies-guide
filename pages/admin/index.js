@@ -6,7 +6,10 @@ import { connect } from "react-redux";
 import Router from "next/router";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Users from "./users/users";
+import AdminUsers from "./users/users";
+import AdminListings from "./listings/listings";
+import AdminBoardMembers from "./board/board";
+
 
 const useStyles = makeStyles((theme) => ({
   // ADD STYLES HERE
@@ -31,8 +34,8 @@ const adminRoutes = [
   },
   {
     id: 3,
-    name: "Other",
-  },
+    name: 'The Board'
+  }
 ];
 
 const Index = ({ auth, profile, admin }) => {
@@ -77,7 +80,9 @@ const Index = ({ auth, profile, admin }) => {
         </Tabs>
       </Grid>
 
-      {value === 0 && <Users />}
+      {value === 0 && <AdminUsers />}
+      {value === 1 && <AdminListings />}
+      {value === 2 && <AdminBoardMembers />}
     </Grid>
   );
 };

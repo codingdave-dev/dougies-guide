@@ -174,7 +174,7 @@ const ListingDetailForm = ({  cancel,  handleSubmit, error, submitting }) => {
           <Grid item style={{marginBottom: "1em" }}>
             <Button
                 variant="outlined"
-                color={theme.palette.common.grey}
+                style={{color: theme.palette.common.grey}}
                 fullWidth
                 onClick={cancel}
             >

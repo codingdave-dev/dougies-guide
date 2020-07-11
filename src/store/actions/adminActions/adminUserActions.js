@@ -85,7 +85,7 @@ export const fetchApprovedUsers = () => {
     const usersQuery = firestore
       .collection("users")
       .where("disabled", "==", false)
-      .orderBy("admin", "desc");
+      .orderBy("admin", "desc").orderBy('createdAt', 'asc');
 
     try {
       dispatch(asyncActionStart());

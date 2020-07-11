@@ -10,6 +10,7 @@ import boardMemberReducer from "../boardMembersReducer/boardMemberReducer";
 import listingReducer from "../listingReducers/listingReducer";
 
 import userReducer from "../userReducer/userReducer";
+import adminReducer from '../adminReducers/adminReducers'
 
 const rootReducer = combineReducers({
   // ASYNC
@@ -32,8 +33,10 @@ const rootReducer = combineReducers({
   listings: listingReducer,
 
   // USER REDUCERS
-  user: userReducer
+  user: userReducer,
 
+  // ADMIN REDUCERS
+  admin: adminReducer
 });
 
 export default rootReducer;

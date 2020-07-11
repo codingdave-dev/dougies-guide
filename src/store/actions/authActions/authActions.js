@@ -19,7 +19,8 @@ export const registerUser = (creds) => {
         fullName: creds.firstName + ' ' + creds.lastName,
         admin: false,
         disabled: false,
-        createdAt: firestore.FieldValue.serverTimestamp()
+        createdAt: firestore.FieldValue.serverTimestamp(),
+        photoURL: '/assets/avatar/user.png'
       }
 
       await firestore.set(`users/${createdUser.user.uid}`, {...newUser})
@@ -84,6 +85,13 @@ export const login = (creds) => {
         "The password is invalid or the user does not have a password."
       ) {
         errorMessage = "Email or Password not found.";
+      }
+
+      if (
+          error.message ===
+          "The user account has been disabled by an administrator."
+      ) {
+        errorMessage = "Account Disabled, please contact an administrator.";
       }
 
       throw new SubmissionError({

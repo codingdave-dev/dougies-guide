@@ -158,6 +158,7 @@ const Header = ({
 
   // AUTHENTICATION
   const authenticated = auth.isLoaded && !auth.isEmpty && profile.isLoaded && !profile.isEmpty;
+  const isAdmin = profile.admin
 
 
 
@@ -245,12 +246,16 @@ const Header = ({
 
   ];
 
-  const authRoutes = [
+  const adminAuthRoutes = [
     {
       name: "Admin Area",
       link: "/admin",
       activeIndex: 4,
     },
+  ]
+
+  const authRoutes = [
+
     {
       name: profile.fullName,
       link: `/profile/userProfile?id=${profile.uid}`,
@@ -274,7 +279,7 @@ const Header = ({
   ];
 
   useEffect(() => {
-    [...authMenuOptions, ...authRoutes, ...routes].forEach((route) => {
+    [...authMenuOptions, ...adminAuthRoutes, ...authRoutes, ...routes].forEach((route) => {
       switch (window.location.pathname) {
         case `${route.link}`:
           if (value !== route.activeIndex) {
@@ -292,6 +297,7 @@ const Header = ({
     value,
     setValue,
     authMenuOptions,
+      adminAuthRoutes,
       authRoutes,
     selectedIndex,
     setSelectedIndex,
@@ -313,6 +319,25 @@ const Header = ({
                     component={Link}
                     href={route.link}
                     label={route.name}
+                />
+            ))}
+
+            {/*ADMIN AUTH ROUTES*/}
+            {authenticated &&
+            authenticated &&
+            isAdmin &&
+            adminAuthRoutes.map((route, index) => (
+                <Tab
+                    key={`${route}${index}`}
+                    className={
+                      route.end ? classes.tab + " " + classes.tabEnd : classes.tab
+                    }
+                    component={Link}
+                    href={route.link}
+                    label={route.name}
+                    // aria-owns={route.ariaOwns}
+                    // aria-haspopup={route.ariaPopup}
+                    // onMouseOver={route.mouseOver}
                 />
             ))}
 

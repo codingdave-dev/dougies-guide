@@ -3,8 +3,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const dougiesPurple = '#7100E3'
 const white = '#fff'
 const textGrey = '#4d4d4d'
-const green = '#009900'
-const error = '#ff3333'
 
 
 // Create a theme instance.
@@ -17,11 +15,7 @@ const theme = createMuiTheme({
             main: textGrey,
         },
         common: {
-          green: green,
             grey: textGrey
-        },
-        error: {
-            main: error,
         },
     },
     typography: {

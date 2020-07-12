@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -9,8 +9,11 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import {connect} from "react-redux";
-import {fetchPopularListings} from "../src/store/actions/listingActions/listingActions";
+import { connect } from "react-redux";
+import {
+  fetchAllListings,
+  fetchPopularListings,
+} from "../src/store/actions/listingActions/listingActions";
 import ListingItem from "../src/ui/listing/listingItem/ListingItem";
 import Loader from "../src/ui/Loader";
 
@@ -71,8 +74,6 @@ const useStyles = makeStyles((theme) => ({
       width: "95%",
     },
   },
-
-
 
   card: {
     maxWidth: 345,
@@ -135,28 +136,81 @@ const useStyles = makeStyles((theme) => ({
 // ];
 
 const actions = {
-  fetchPopularListings
-}
+  fetchPopularListings,
+  fetchAllListings,
+};
 
 const mapStateToProps = (state) => {
-  let popularListings = []
+  let popularListings = [];
+  let allListings = [];
 
-  if (state.listings.popularListings && state.listings.popularListings.length > 0) {
+  if (
+    state.listings.popularListings &&
+    state.listings.popularListings.length > 0
+  ) {
     popularListings = state.listings.popularListings;
   }
 
+  if (state.listings.allListings && state.listings.allListings.length > 0) {
+    allListings = state.listings.allListings;
+  }
   return {
     loading: state.loading.loading,
-    popularListings: popularListings
-  }
-}
+    popularListings: popularListings,
+    allListings: allListings,
+  };
+};
 
-const Index = ({loading, fetchPopularListings, popularListings}) => {
+const Index = ({
+  loading,
+  fetchPopularListings,
+  fetchAllListings,
+  popularListings,
+  allListings,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
+
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
   useEffect(() => {
-    fetchPopularListings()
-  }, [fetchPopularListings])
+    fetchPopularListings();
+    fetchAllListings();
+  }, [fetchPopularListings, fetchAllListings]);
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+
+    const listingData = allListings.map((listing) =>
+      Object.values(listing).filter(
+        (option) => option !== true && option !== false
+      )
+    );
+
+    const matches = listingData.map((listing) =>
+      listing.map((option) =>
+        option
+          .toString()
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase())
+      )
+    );
+
+    const searchListings = [...allListings];
+    matches.map((listing, index) =>
+      listing.includes(true)
+        ? (searchListings[index].search = true)
+        : (searchListings[index].search = false)
+    );
+
+    setSearchResults(searchListings);
+
+    if (event.target.value === "") {
+      setSearchResults([]);
+    }
+  };
+
   return (
     <Grid container direction={"column"} justify={"center"}>
       <Grid item container justify={"center"}>
@@ -186,63 +240,106 @@ const Index = ({loading, fetchPopularListings, popularListings}) => {
         </Grid>
       </Grid>
 
-      {/*<Grid*/}
-      {/*  item*/}
-      {/*  container*/}
-      {/*  direction={"column"}*/}
-      {/*  justify={"center"}*/}
-      {/*  style={{ marginTop: "2em" }}*/}
-      {/*>*/}
-      {/*  <Grid item>*/}
-      {/*    <Typography*/}
-      {/*      variant={"h6"}*/}
-      {/*      className={classes.searchText}*/}
-      {/*      align={"center"}*/}
-      {/*    >*/}
-      {/*      Search for a dive, restaurant or location*/}
-      {/*    </Typography>*/}
-      {/*  </Grid>*/}
-      {/*  <Grid item container justify={"center"}>*/}
-      {/*    <TextField*/}
-      {/*      id={"search-box"}*/}
-      {/*      label={"Search"}*/}
-      {/*      variant={"outlined"}*/}
-      {/*      className={classes.searchBox}*/}
-      {/*      color={"primary"}*/}
-      {/*    />*/}
-      {/*  </Grid>*/}
-      {/*</Grid>*/}
+      <Grid
+        item
+        container
+        direction={"column"}
+        justify={"center"}
+        style={{ marginTop: "2em" }}
+      >
+        <Grid item>
+          <Typography
+            variant={"h6"}
+            className={classes.searchText}
+            align={"center"}
+          >
+            Search for a dive, restaurant or location
+          </Typography>
+        </Grid>
+        <Grid item container justify={"center"}>
+          <TextField
+            value={search}
+            onChange={handleSearch}
+            id={"search-box"}
+            label={"Search"}
+            variant={"outlined"}
+            className={classes.searchBox}
+            color={"primary"}
+          />
+        </Grid>
+      </Grid>
 
-      {/*OUR FAVOURITES*/}
-
-      <Grid container direction={"column"} alignItems={"center"} style={{marginTop: '2em'}}>
-
+      {/*SEARCH RESULTS*/}
+      {searchResults.length > 1 && (
         <Grid
+          container
+          direction={"column"}
+          alignItems={"center"}
+          style={{ marginTop: "2em" }}
+        >
+          <Grid
             item
             container
             direction={"column"}
             alignItems={"center"}
             className={classes.listingWrapper}
-        >
-          <Grid item>
-            <Typography variant={"h3"} className={classes.subTitle} align={'center'}>
-              Popular Right Now
-            </Typography>
+          >
+            <Grid item>
+              <Typography
+                variant={"h1"}
+                className={classes.title}
+                align={"center"}
+              >
+                Search Results
+              </Typography>
+            </Grid>
+            {searchResults &&
+              searchResults
+                .filter((listing) => listing.search)
+                .map((listing) => (
+                  <ListingItem key={listing.id} listing={listing} />
+                ))}
           </Grid>
-
-          {loading && <Loader pageLoader />}
-
-          {!loading &&
-          popularListings &&
-          popularListings.map((listing) => (
-              <ListingItem key={listing.id} listing={listing} />
-          ))}
-
         </Grid>
-      </Grid>
+      )}
 
+      {/*OUR FAVOURITES*/}
+      {searchResults.length < 1 && (
+        <Grid
+          container
+          direction={"column"}
+          alignItems={"center"}
+          style={{ marginTop: "2em" }}
+        >
+          <Grid
+            item
+            container
+            direction={"column"}
+            alignItems={"center"}
+            className={classes.listingWrapper}
+          >
+            <Grid item>
+              <Typography
+                variant={"h1"}
+                className={classes.title}
+                align={"center"}
+              >
+                Popular Right Now
+              </Typography>
+            </Grid>
+
+            {loading && <Loader pageLoader />}
+
+            {!loading &&
+              popularListings &&
+              popularListings.map((listing) => (
+                <ListingItem key={listing.id} listing={listing} />
+              ))}
+          </Grid>
+        </Grid>
+      )}
     </Grid>
   );
 };
 
-export default connect(mapStateToProps, actions) (Index);
+export default connect(mapStateToProps, actions)(Index);

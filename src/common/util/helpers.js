@@ -9,6 +9,7 @@ export const createNewListingHelper = (user, createdAt, photoURL, values) => {
         rating: 0,
         ratingTotal: 0,
         photoURL: photoURL,
+        search: true,
         ...values
     }
 }

@@ -187,11 +187,10 @@ const DetailedHeader = ({
             item
             container
             direction={matchesSM ? "row" : "column"}
-            spacing={1}
           >
             {authenticated && (
               <Fragment>
-                <Grid item>
+                <Grid item style={{margin: '0.3em'}}>
                   <Button
                     variant="outlined"
                     size={"small"}
@@ -215,7 +214,27 @@ const DetailedHeader = ({
                     Favourite
                   </Button>
                 </Grid>
-                <Grid item>
+                <Grid item style={{margin: '0.3em'}}>
+                  <Button
+                      variant="outlined"
+                      size={"small"}
+                      style={{ color: theme.palette.success.main }}
+                      startIcon={<PlaceIcon />}
+                      fullWidth
+                      onClick={() =>
+                          !isCheckin
+                              ? addUserCheckin(profile.uid, listing.id)
+                              : openDialog("CheckinDialog", {
+                                userId: profile.uid,
+                                listingId: listing.id,
+                                checkinId: checkinId,
+                              })
+                      }
+                  >
+                    {isCheckin ? "Checked In" : "Check In"}
+                  </Button>
+                </Grid>
+                <Grid item style={{margin: '0.3em'}}>
                   <Button
                     variant="outlined"
                     size={"small"}
@@ -230,31 +249,12 @@ const DetailedHeader = ({
                   </Button>
                 </Grid>
 
-                <Grid item>
+
+                <Grid item style={{margin: '0.3em'}}>
                   <Button
                     variant="outlined"
                     size={"small"}
-                    style={{ color: theme.palette.common.green }}
-                    startIcon={<PlaceIcon />}
-                    fullWidth
-                    onClick={() =>
-                      !isCheckin
-                        ? addUserCheckin(profile.uid, listing.id)
-                        : openDialog("CheckinDialog", {
-                            userId: profile.uid,
-                            listingId: listing.id,
-                            checkinId: checkinId,
-                          })
-                    }
-                  >
-                    {isCheckin ? "Checked In" : "Check In"}
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="outlined"
-                    size={"small"}
-                    style={{ color: theme.palette.common.grey }}
+                    style={{ color: theme.palette.primary.main }}
                     startIcon={<AddAPhotoIcon />}
                     fullWidth
                     onClick={() => openDialog("SubPhotoDialog", { profile, listing })}
@@ -263,11 +263,11 @@ const DetailedHeader = ({
                   </Button>
                 </Grid>
                 {((profile.admin === true) || (listing.addedByUid === profile.uid)) &&
-                <Grid item>
+                <Grid item style={{margin: '0.3em'}}>
                   <Button
                       variant="outlined"
                       size={"small"}
-                      style={{ color: theme.palette.common.grey }}
+                      style={{ color: theme.palette.primary.main }}
                       startIcon={<PhotoIcon />}
                       fullWidth
                       onClick={() => openDialog("MainPhotoDialog", { profile, listing })}

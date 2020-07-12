@@ -16,8 +16,8 @@ const DetailedExtras = ({ listing, classes }) => {
           </Typography>
         </Grid>
         <Grid item style={{ marginTop: "0.7em" }}>
-          <Grid item container spacing={8}>
-            <Grid item>
+          <Grid item container>
+            <Grid item style={{marginRight: '3em'}}>
               <DetailedActivities listing={listing} classes={classes} />
             </Grid>
             <Grid item>

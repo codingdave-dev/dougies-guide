@@ -98,6 +98,7 @@ const ListingItem = ({ listing, toggleListingApprove, deleteListing, deletePhoto
           {/*BUTTONS*/}
           <Grid item style={{ marginTop: "0.8em" }}>
             <Grid item container>
+
               <Grid item style={{ marginRight: "0.5em" }}>
                 <Button
                   variant="outlined"
@@ -109,6 +110,7 @@ const ListingItem = ({ listing, toggleListingApprove, deleteListing, deletePhoto
                   {listing.approved ? "Unapprove" : "Approve"}
                 </Button>
               </Grid>
+
 
               <Grid item style={{ marginRight: "0.5em" }}>
                 <Button

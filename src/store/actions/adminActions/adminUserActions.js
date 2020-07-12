@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  FETCH_ALL_ADMINS_USERS,
   FETCH_ALL_ADMINS,
   FETCH_ALL_USERS,
   FETCH_APPROVED_USERS,
@@ -10,6 +11,38 @@ import {
   asyncActionFinish,
   asyncActionStart,
 } from "../asyncActions/asyncActions";
+
+// FETCH ALL ADMINS/USERS
+export const fetchAllAdminsAndUsers = () => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const usersQuery = firestore
+        .collection("users")
+        .orderBy("fullName", "asc");
+
+    try {
+      dispatch(asyncActionStart());
+      let query = await usersQuery.get();
+
+      let allAdminsAndUsers = [];
+
+      for (let i = 0; i < query.docs.length; i++) {
+        let user = {
+          ...query.docs[i].data(),
+          id: query.docs[i].id,
+        };
+        allAdminsAndUsers.push(user);
+      }
+
+      dispatch({ type: FETCH_ALL_ADMINS_USERS, payload: { allAdminsAndUsers } });
+      dispatch(asyncActionFinish());
+    } catch (error) {
+      dispatch(asyncActionError());
+      console.log(error);
+    }
+  };
+};
 
 // FETCH ALL ADMINS
 export const fetchAllAdmins = () => {

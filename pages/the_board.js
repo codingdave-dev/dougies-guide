@@ -129,7 +129,7 @@ const TheBoard = ({ getBoardMembers, board, loading }) => {
               <Grid item>
                 <img
                   className={classes.image}
-                  src={member.photoUrl}
+                  src={member.photoURL}
                   alt={`${member.fullName} photo`}
                 />
               </Grid>
@@ -167,7 +167,7 @@ const TheBoard = ({ getBoardMembers, board, loading }) => {
                       variant={"body1"}
                       className={classes.boardTextInfo}
                     >
-                      {member.info}
+                      {member.description}
                     </Typography>
                   </Grid>
                 </Grid>

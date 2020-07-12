@@ -1,69 +1,106 @@
-import React from 'react';
-import {makeStyles, useTheme} from "@material-ui/core/styles";
-import {Grid} from "@material-ui/core";
+import React, { useState } from "react";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import AllAdmins from "../users/allAdmins";
-import AllUsers from "../users/allUsers";
-import ApprovedUsers from "../users/approvedUsers";
-import UnapprovedUsers from "../users/unapprovedUsers";
-import {connect} from "react-redux";
-import Loader from "../../../src/ui/Loader";
-import BoardItem from "../../../src/ui/admin/BoardItem";
+
+import { connect } from "react-redux";
+import AllBoardMembers from "./allBoardMembers";
+import {
+  createBoardMember,
+  createBoardMemberRole,
+  fetchBoardMembers,
+  fetchBoardRoles,
+} from "../../../src/store/actions/adminActions/adminBoardActions";
+
+import AddBoardMember from "./addBoardMember";
+import AddBoardMemberRole from "./addBoardMemberRole";
+import { openDialog } from "../../../src/store/actions/dialogActions/dialogActions";
 
 const useStyles = makeStyles((theme) => ({
-    // ADD STYLES HERE
+  // ADD STYLES HERE
 }));
 
 const actions = {
-
-}
+  fetchBoardMembers,
+  createBoardMember,
+  createBoardMemberRole,
+};
 
 const mapStateToProps = (state) => {
-
-    let boardMembers = [];
-
-    if (state.admin.boardMembers && state.admin.boardMembers.length > 0) {
-        boardMembers = state.admin.boardMembers;
-    }
-
-    return {
-        auth: state.firebase.auth,
-        profile: state.firebase.profile,
-        admin: state.firebase.profile.admin,
-        boardMembers: boardMembers
-    };
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
+    admin: state.firebase.profile.admin,
+  };
 };
 
-const AdminBoardMembers = ({loading, boardMembers}) => {
-    const classes = useStyles();
-    const theme = useTheme();
-    const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
-    return (
-        <Grid
-            container
-            direction={"column"}
-            alignItems={"center"}
-            justify={"center"}
-            style={{ marginTop: "1em" }}
+const boardRoutes = [
+  {
+    id: 1,
+    name: "All Member",
+  },
+  {
+    id: 2,
+    name: "Add New Member",
+  },
+  {
+    id: 3,
+    name: "Add Role",
+  },
+];
+
+const AdminBoardMembers = ({
+  fetchBoardMembers,
+  createBoardMember,
+  createBoardMemberRole,
+}) => {
+  const classes = useStyles();
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [value, setValue] = useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Grid
+      container
+      direction={"column"}
+      alignItems={"center"}
+      justify={"center"}
+      style={{ marginTop: "1em" }}
+    >
+      <Grid item>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
         >
-            <Grid
-                item
-                container
-                direction={"column"}
-                alignItems={"center"}
-                className={classes.userWrapper}
-            >
-                {loading && <Loader pageLoader />}
+          {boardRoutes.map((board) => (
+            <Tab key={board.id} label={board.name} />
+          ))}
+        </Tabs>
+      </Grid>
 
-                {!loading &&
-                boardMembers &&
-                boardMembers.map((member) => <BoardItem key={member.id} member={member}  />)}
-            </Grid>
-
-        </Grid>
-    );
+      {value === 0 && <AllBoardMembers setValue={setValue} fetchBoardMembers={fetchBoardMembers} />}
+      {value === 1 && (
+        <AddBoardMember
+          setValue={setValue}
+          createBoardMember={createBoardMember}
+        />
+      )}
+      {value === 2 && (
+        <AddBoardMemberRole
+          setValue={setValue}
+          createBoardMemberRole={createBoardMemberRole}
+        />
+      )}
+    </Grid>
+  );
 };
 
-export default connect(mapStateToProps, actions) (AdminBoardMembers);
+export default connect(mapStateToProps, actions)(AdminBoardMembers);

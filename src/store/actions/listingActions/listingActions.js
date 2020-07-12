@@ -4,7 +4,7 @@ import cuid from "cuid";
 import {
   FETCH_ALL_APPROVED_LISTING,
   FETCH_ALL_LISTING,
-  FETCH_LISTING,
+  FETCH_LISTING, FETCH_POPULAR_LISTING,
 } from "../../constants/listingConstants/listingConstants";
 import {
   asyncActionError,
@@ -16,6 +16,35 @@ import {
   fetchUserFavourites,
 } from "../userActions/userActions";
 import { createNewListingHelper } from "../../../common/util/helpers";
+
+// FETCH POPULAR LISTINGS
+export const fetchPopularListings = () => {
+  return async (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore()
+
+    const listingsQuery = firestore.collection('listings').where('numberOfReviews', '>=', 5).limit(4)
+
+    try {
+
+      let query = await listingsQuery.get()
+
+      let popularListings = []
+
+      for (let i = 0; i < query.docs.length; i++) {
+        let listing = {
+          ...query.docs[i].data(),
+          id: query.docs[i].id,
+        };
+        popularListings.push(listing);
+      }
+
+      dispatch({type: FETCH_POPULAR_LISTING, payload: {popularListings}})
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 // FETCH ALL LISITNGS
 export const fetchAllListings = () => {

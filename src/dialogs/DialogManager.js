@@ -10,6 +10,7 @@ import EditProfileDialog from "./user/EditProfileDialog";
 import UserProfileImageDialog from "./user/UserProfileImageDialog";
 import ChangeUserPasswordDialog from "./user/ChangeUserPasswordDialog";
 
+
 const dialogLookup = {
   LoginDialog,
   RegisterDialog,
@@ -19,7 +20,7 @@ const dialogLookup = {
   SubPhotoDialog,
   EditProfileDialog,
   UserProfileImageDialog,
-  ChangeUserPasswordDialog
+  ChangeUserPasswordDialog,
 };
 
 const mapStateToProps = (state) => ({

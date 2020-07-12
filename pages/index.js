@@ -11,6 +11,8 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {connect} from "react-redux";
 import {fetchPopularListings} from "../src/store/actions/listingActions/listingActions";
+import ListingItem from "../src/ui/listing/listingItem/ListingItem";
+import Loader from "../src/ui/Loader";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -60,6 +62,18 @@ const useStyles = makeStyles((theme) => ({
   searchBox: {
     width: "40em",
   },
+  listingWrapper: {
+    width: "80%",
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "95%",
+    },
+  },
+
+
+
   card: {
     maxWidth: 345,
   },
@@ -132,11 +146,12 @@ const mapStateToProps = (state) => {
   }
 
   return {
+    loading: state.loading.loading,
     popularListings: popularListings
   }
 }
 
-const Index = ({fetchPopularListings, popularListings}) => {
+const Index = ({loading, fetchPopularListings, popularListings}) => {
   const classes = useStyles();
   const theme = useTheme();
   useEffect(() => {
@@ -200,66 +215,32 @@ const Index = ({fetchPopularListings, popularListings}) => {
 
       {/*OUR FAVOURITES*/}
 
-      {/*<Grid item container direction={"column"} style={{ marginTop: "4em" }}>*/}
-      {/*  <Grid item>*/}
-      {/*    <Typography*/}
-      {/*      variant={"h3"}*/}
-      {/*      className={classes.subTitle}*/}
-      {/*      align={"center"}*/}
-      {/*    >*/}
-      {/*      Popular Right Now*/}
-      {/*    </Typography>*/}
-      {/*  </Grid>*/}
-      {/*  <Grid*/}
-      {/*    item*/}
-      {/*    container*/}
-      {/*    direction={"row"}*/}
-      {/*    justify={"space-evenly"}*/}
-      {/*    spacing={2}*/}
-      {/*    style={{marginTop: '1em'}}*/}
-      {/*  >*/}
+      <Grid container direction={"column"} alignItems={"center"} style={{marginTop: '2em'}}>
 
+        <Grid
+            item
+            container
+            direction={"column"}
+            alignItems={"center"}
+            className={classes.listingWrapper}
+        >
+          <Grid item>
+            <Typography variant={"h3"} className={classes.subTitle} align={'center'}>
+              Popular Right Now
+            </Typography>
+          </Grid>
 
-      {/*    {popularListings.map((favourite) => (*/}
-      {/*      <Grid item key={favourite.id}>*/}
-      {/*        <Card className={classes.card}>*/}
-      {/*          <CardActionArea>*/}
-      {/*            <CardMedia*/}
-      {/*              className={classes.cardMedia}*/}
-      {/*              image={favourite.photoURL}*/}
-      {/*              title={favourite.name + "Photo"}*/}
-      {/*            />*/}
-      {/*            <CardContent>*/}
-      {/*              <Typography gutterBottom variant="h5" component="h2">*/}
-      {/*                {favourite.title}*/}
-      {/*              </Typography>*/}
-      {/*              <Typography*/}
-      {/*                variant="body2"*/}
-      {/*                color="textSecondary"*/}
-      {/*                component="p"*/}
-      {/*              >*/}
-      {/*                {favourite.description}*/}
-      {/*              </Typography>*/}
-      {/*            </CardContent>*/}
-      {/*          </CardActionArea>*/}
-      {/*          <CardActions>*/}
-      {/*            <Grid container justify={'center'}>*/}
-      {/*              <Grid item>*/}
-      {/*                <Button size="small" color="primary">*/}
-      {/*                  View*/}
-      {/*                </Button>*/}
-      {/*              </Grid>*/}
-      {/*            </Grid>*/}
+          {loading && <Loader pageLoader />}
 
-      {/*          </CardActions>*/}
-      {/*        </Card>*/}
-      {/*      </Grid>*/}
-      {/*    ))}*/}
+          {!loading &&
+          popularListings &&
+          popularListings.map((listing) => (
+              <ListingItem key={listing.id} listing={listing} />
+          ))}
 
+        </Grid>
+      </Grid>
 
-
-      {/*  </Grid>*/}
-      {/*</Grid>*/}
     </Grid>
   );
 };

@@ -22,10 +22,10 @@ export const fetchPopularListings = () => {
   return async (dispatch, getState, {getFirestore}) => {
     const firestore = getFirestore()
 
-    const listingsQuery = firestore.collection('listings').where('numberOfReviews', '>=', 5).limit(4)
+    const listingsQuery = firestore.collection('listings').where('approved', '==', true).limit(4)
 
     try {
-
+      dispatch(asyncActionStart())
       let query = await listingsQuery.get()
 
       let popularListings = []
@@ -39,8 +39,9 @@ export const fetchPopularListings = () => {
       }
 
       dispatch({type: FETCH_POPULAR_LISTING, payload: {popularListings}})
-
+      dispatch(asyncActionFinish())
     } catch (error) {
+      dispatch(asyncActionError())
       console.log(error)
     }
   }
@@ -54,6 +55,7 @@ export const fetchAllListings = () => {
     const listingsQuery = firestore.collection('listings')
 
     try {
+      dispatch(asyncActionStart())
 
       let query = await listingsQuery.get()
 
@@ -68,8 +70,10 @@ export const fetchAllListings = () => {
       }
 
       dispatch({type: FETCH_ALL_LISTING, payload: {allListings}})
+      dispatch(asyncActionFinish())
 
     } catch (error) {
+      dispatch(asyncActionError())
       console.log(error)
     }
   }

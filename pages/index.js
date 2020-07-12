@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "2em",
     },
     [theme.breakpoints.down("sm")]: {
-      fontSize: "1.3em",
+      fontSize: "1.5em",
     },
     [theme.breakpoints.down("xs")]: {
-      fontSize: "0.9em",
+      fontSize: "1.3em",
     },
   },
   slogan: {
@@ -83,57 +83,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const favourites = [
-//   {
-//     id: 1,
-//     name: "Santas Pub",
-//     description:
-//       "This is Santas Pub description, it will be limited to 100 characters",
-//     photoURL: "/assets/avatar/building.png",
-//   },
-//   {
-//     id: 2,
-//     name: "Santas Pub 2",
-//     description:
-//       "This is Santas Pub description, it will be limited to 100 characters",
-//     photoURL: "/assets/avatar/building.png",
-//   },
-//   {
-//     id: 3,
-//     name: "Santas Pub 3",
-//     description:
-//       "This is Santas Pub description, it will be limited to 100 characters",
-//     photoURL: "/assets/avatar/building.png",
-//   },
-//   {
-//     id: 4,
-//     name: "Santas Pub 4",
-//     description:
-//       "This is Santas Pub description, it will be limited to 100 characters",
-//     photoURL: "/assets/avatar/building.png",
-//   },
-//   {
-//     id: 5,
-//     name: "Santas Pub 5",
-//     description:
-//       "This is Santas Pub description, it will be limited to 100 characters",
-//     photoURL: "/assets/avatar/building.png",
-//   },
-//   {
-//     id: 6,
-//     name: "Santas Pub 6",
-//     description:
-//       "This is Santas Pub description, it will be limited to 100 characters",
-//     photoURL: "/assets/avatar/building.png",
-//   },
-//   {
-//     id: 7,
-//     name: "Santas Pub 7",
-//     description:
-//       "This is Santas Pub description, it will be limited to 100 characters",
-//     photoURL: "/assets/avatar/building.png",
-//   },
-// ];
 
 const actions = {
   fetchPopularListings,
@@ -286,8 +235,8 @@ const Index = ({
           >
             <Grid item>
               <Typography
-                variant={"h1"}
-                className={classes.title}
+                variant={"h3"}
+                className={classes.subTitle}
                 align={"center"}
               >
                 Search Results
@@ -320,8 +269,8 @@ const Index = ({
           >
             <Grid item>
               <Typography
-                variant={"h1"}
-                className={classes.title}
+                variant={"h3"}
+                className={classes.subTitle}
                 align={"center"}
               >
                 Popular Right Now

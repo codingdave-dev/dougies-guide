@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { connect } from "react-redux";
@@ -9,7 +9,6 @@ import Tab from "@material-ui/core/Tab";
 import AdminUsers from "./users/users";
 import AdminListings from "./listings/listings";
 import AdminBoardMembers from "./board/board";
-
 
 const useStyles = makeStyles((theme) => ({
   // ADD STYLES HERE
@@ -23,20 +22,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const adminRoutes = [
-  {
-    id: 1,
-    name: "Users",
-  },
-  {
-    id: 2,
-    name: "Listings",
-  },
-  {
-    id: 3,
-    name: 'The Board'
-  }
-];
+let adminRoutes = []
+
 
 const Index = ({ auth, profile, admin }) => {
   const authenticated =
@@ -46,7 +33,25 @@ const Index = ({ auth, profile, admin }) => {
     !profile.isEmpty &&
     admin;
 
+
   const [value, setValue] = useState(0);
+
+  if (authenticated) {
+    adminRoutes = [
+      {
+        id: 1,
+        name: "Users",
+      },
+      {
+        id: 2,
+        name: "Listings",
+      },
+      {
+        id: 3,
+        name: "The Board",
+      },
+    ];
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -67,22 +72,26 @@ const Index = ({ auth, profile, admin }) => {
       alignItems={"center"}
       justify={"center"}
     >
-      <Grid item>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-        >
-          {adminRoutes.map((admin) => (
-            <Tab key={admin.id} label={admin.name} />
-          ))}
-        </Tabs>
-      </Grid>
+      {authenticated && authenticated && (
+        <Fragment>
+          <Grid item>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+            >
+              {adminRoutes.map((admin) => (
+                <Tab key={admin.id} label={admin.name} />
+              ))}
+            </Tabs>
+          </Grid>
 
-      {value === 0 && <AdminUsers />}
-      {value === 1 && <AdminListings />}
-      {value === 2 && <AdminBoardMembers />}
+          {value === 0 && <AdminUsers />}
+          {value === 1 && <AdminListings />}
+          {value === 2 && <AdminBoardMembers />}
+        </Fragment>
+      )}
     </Grid>
   );
 };

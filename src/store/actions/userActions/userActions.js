@@ -202,6 +202,7 @@ export const updateUserProfile = (values) => {
         firstName: firstName,
         lastName: lastName,
         fullName: fullName,
+        email: email
       });
 
       dispatch(closeDialog());

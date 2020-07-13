@@ -17,6 +17,7 @@ export const registerUser = (creds) => {
         firstName: creds.firstName,
         lastName: creds.lastName,
         fullName: creds.firstName + ' ' + creds.lastName,
+        email: creds.email,
         admin: false,
         disabled: false,
         createdAt: firestore.FieldValue.serverTimestamp(),

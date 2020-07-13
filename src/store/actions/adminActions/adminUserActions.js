@@ -223,7 +223,7 @@ export const toggleUserDisable = (id, userDisabled) => {
 };
 
 // DELETE USER
-export const deleteUser = (id, photoName, admin) => {
+export const deleteUser = (id, photoName, photoURL, admin) => {
   return async (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -247,7 +247,22 @@ export const deleteUser = (id, photoName, admin) => {
               // DELETE USER FIRESTORE DATA
               query.doc(`${id}`).delete();
 
-              firebase.deleteFile(`user_profile_photos/${id}/${photoName}`);
+              if (photoURL === '/assets/avatar/user.png') {
+                dispatch(fetchAllAdmins());
+                dispatch(fetchAllUsers());
+                dispatch(fetchApprovedUsers());
+                dispatch(fetchUnapprovedUsers());
+                dispatch(asyncActionFinish());
+              } else {
+                firebase.deleteFile(`user_profile_photos/${id}/${photoName}`);
+                dispatch(fetchAllAdmins());
+                dispatch(fetchAllUsers());
+                dispatch(fetchApprovedUsers());
+                dispatch(fetchUnapprovedUsers());
+                dispatch(asyncActionFinish());
+              }
+
+
             }
           })
           .catch((error) => {
@@ -256,11 +271,7 @@ export const deleteUser = (id, photoName, admin) => {
               return;
             }
           });
-        dispatch(fetchAllAdmins());
-        dispatch(fetchAllUsers());
-        dispatch(fetchApprovedUsers());
-        dispatch(fetchUnapprovedUsers());
-        dispatch(asyncActionFinish());
+
       } catch (error) {
         dispatch(asyncActionError());
         console.log(error);

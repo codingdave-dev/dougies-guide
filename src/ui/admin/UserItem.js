@@ -140,7 +140,7 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
                   size={"small"}
                   style={{ color: theme.palette.error.main }}
                   fullWidth
-                  onClick={() => deleteUser(user.id, user.photoName, isAdmin)}
+                  onClick={() => deleteUser(user.id, user.photoName, user.photoURL, isAdmin)}
                 >
                   Delete
                 </Button>

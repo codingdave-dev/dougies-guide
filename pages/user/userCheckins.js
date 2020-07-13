@@ -98,9 +98,6 @@ const UserFavourites = ({
       <Fragment>
         {authenticated && (
             <Grid container direction={"column"} alignItems={"center"}>
-              <Backdrop open={loading}>
-                <CircularProgress color={"inherit"} />
-              </Backdrop>
               <Grid
                   item
                   container
@@ -116,7 +113,7 @@ const UserFavourites = ({
 
                 {checkins.length < 1 && (
                     <Grid item style={{ marginTop: "1em" }}>
-                      <Alert severity="error">No Favourites found.</Alert>
+                      <Alert severity="error">No Checkins found.</Alert>
                     </Grid>
                 )}
 

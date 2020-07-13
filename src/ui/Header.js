@@ -260,10 +260,11 @@ const Header = ({
   };
 
   const handleSignOut = () => {
+    logout();
     setValue(0);
     setSelectedIndex(0);
     setAnchorEl(null);
-    logout();
+
   };
 
   const handleChange = (e, newValue) => {

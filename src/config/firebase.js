@@ -19,7 +19,4 @@ if (!firebase.apps.length) {
   firebase.storage();
 }
 
-// firebase.initializeApp(firebaseConfig);
-// firebase.firestore();
-
 export default firebase;

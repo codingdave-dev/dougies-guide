@@ -9,6 +9,7 @@ import SubPhotoDialog from "./SubPhotoDialog";
 import EditProfileDialog from "./user/EditProfileDialog";
 import UserProfileImageDialog from "./user/UserProfileImageDialog";
 import ChangeUserPasswordDialog from "./user/ChangeUserPasswordDialog";
+import ListingPhotosDialog from "./listing/ListingPhotosDialog";
 
 
 const dialogLookup = {
@@ -21,6 +22,7 @@ const dialogLookup = {
   EditProfileDialog,
   UserProfileImageDialog,
   ChangeUserPasswordDialog,
+  ListingPhotosDialog,
 };
 
 const mapStateToProps = (state) => ({

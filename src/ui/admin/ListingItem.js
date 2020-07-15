@@ -49,7 +49,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ListingItem = ({ listing, toggleListingApprove, deleteListing, deletePhotos }) => {
+const ListingItem = ({
+  listing,
+  toggleListingApprove,
+  deleteListing,
+  deletePhotos,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -57,10 +62,11 @@ const ListingItem = ({ listing, toggleListingApprove, deleteListing, deletePhoto
     <Grid
       item
       container
-      style={{ marginTop: 50, flexWrap: "nowrap", cursor: "pointer" }}
+      style={{ marginTop: 50, flexWrap: "nowrap" }}
     >
       <Grid
         item
+        style={{ cursor: "pointer" }}
         onClick={() => {
           Router.push({
             pathname: "/listing/detailed",
@@ -77,7 +83,16 @@ const ListingItem = ({ listing, toggleListingApprove, deleteListing, deletePhoto
 
       <Grid item style={{ marginLeft: 15 }}>
         <Grid item container direction={"column"}>
-          <Grid item>
+          <Grid
+            item
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              Router.push({
+                pathname: "/listing/detailed",
+                query: { id: listing.id },
+              });
+            }}
+          >
             <Typography variant={"h5"} className={classes.listingTitle}>
               {listing.title}
             </Typography>
@@ -98,19 +113,19 @@ const ListingItem = ({ listing, toggleListingApprove, deleteListing, deletePhoto
           {/*BUTTONS*/}
           <Grid item style={{ marginTop: "0.8em" }}>
             <Grid item container>
-
               <Grid item style={{ marginRight: "0.5em" }}>
                 <Button
                   variant="outlined"
                   size={"small"}
                   style={{ color: theme.palette.primary.main }}
                   fullWidth
-                  onClick={() => toggleListingApprove(listing.id, listing.approved)}
+                  onClick={() =>
+                    toggleListingApprove(listing.id, listing.approved)
+                  }
                 >
                   {listing.approved ? "Unapprove" : "Approve"}
                 </Button>
               </Grid>
-
 
               <Grid item style={{ marginRight: "0.5em" }}>
                 <Button
@@ -118,12 +133,17 @@ const ListingItem = ({ listing, toggleListingApprove, deleteListing, deletePhoto
                   size={"small"}
                   style={{ color: theme.palette.error.main }}
                   fullWidth
-                  onClick={() => deleteListing(listing.id, listing.photoName, listing.photoURL)}
+                  onClick={() =>
+                    deleteListing(
+                      listing.id,
+                      listing.photoName,
+                      listing.photoURL
+                    )
+                  }
                 >
                   Delete
                 </Button>
               </Grid>
-
             </Grid>
           </Grid>
         </Grid>

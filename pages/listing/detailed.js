@@ -6,8 +6,7 @@ import { withRouter } from "next/router";
 
 import { connect } from "react-redux";
 import { fetchListing } from "../../src/store/actions/listingActions/listingActions";
-import Backdrop from "@material-ui/core/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress";
+
 
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Divider from "@material-ui/core/Divider";
@@ -286,7 +285,7 @@ const ListingDetailed = ({
 
 
             {/*PHOTOS*/}
-            <DetailedPhotos listing={listing} classes={classes} />
+            <DetailedPhotos listing={listing} classes={classes} openDialog={openDialog}/>
 
             <Divider className={classes.divider} />
 

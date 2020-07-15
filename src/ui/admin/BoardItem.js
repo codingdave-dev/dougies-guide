@@ -54,13 +54,10 @@ const BoardItem = ({ member, setValue }) => {
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <Grid
-      item
-      container
-      style={{ marginTop: 50, flexWrap: "nowrap", cursor: "pointer" }}
-    >
+    <Grid item container style={{ marginTop: 50, flexWrap: "nowrap" }}>
       <Grid
         item
+        style={{ cursor: "pointer" }}
         onClick={() => {
           Router.push({
             pathname: "/profile/userProfile",
@@ -77,7 +74,16 @@ const BoardItem = ({ member, setValue }) => {
 
       <Grid item style={{ marginLeft: 15 }}>
         <Grid item container direction={"column"}>
-          <Grid item>
+          <Grid
+            item
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              Router.push({
+                pathname: "/profile/userProfile",
+                query: { id: member.uid },
+              });
+            }}
+          >
             <Typography variant={"h5"} className={classes.memberTitle}>
               {member.fullName}
             </Typography>

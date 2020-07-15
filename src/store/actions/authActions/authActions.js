@@ -43,6 +43,39 @@ export const registerUser = (creds) => {
   }
 }
 
+export const resetPassword = (creds) => {
+  return async (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    try {
+      await firebase
+          .auth().sendPasswordResetEmail(creds.email)
+
+      dispatch(closeDialog());
+    } catch (error) {
+      let errorMessage = "";
+
+      if (
+          error.message ===
+          'There is no user record corresponding to this identifier. The user may have been deleted.'
+      ) {
+        errorMessage = "Email not found.";
+      }
+
+      if (error.message === "The email address is badly formatted.") {
+        errorMessage = "Please enter a valid email address.";
+      }
+
+
+
+
+      throw new SubmissionError({
+        _error: errorMessage,
+      });
+    }
+  };
+};
+
 export const login = (creds) => {
   return async (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();

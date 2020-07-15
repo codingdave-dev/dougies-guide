@@ -49,7 +49,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin }) => {
+const UserItem = ({
+  user,
+  toggleUserType,
+  toggleUserDisable,
+  deleteUser,
+  isAdmin,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -57,10 +63,11 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
     <Grid
       item
       container
-      style={{ marginTop: 50, flexWrap: "nowrap", cursor: "pointer" }}
+      style={{ marginTop: 50, flexWrap: "nowrap"}}
     >
       <Grid
         item
+        style={{cursor: 'pointer'}}
         onClick={() => {
           Router.push({
             pathname: "/profile/userProfile",
@@ -77,7 +84,16 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
 
       <Grid item style={{ marginLeft: 15 }}>
         <Grid item container direction={"column"}>
-          <Grid item>
+          <Grid
+            item
+            style={{cursor: 'pointer'}}
+            onClick={() => {
+              Router.push({
+                pathname: "/profile/userProfile",
+                query: { id: user.uid },
+              });
+            }}
+          >
             <Typography variant={"h5"} className={classes.userTitle}>
               {user.fullName}
             </Typography>
@@ -98,7 +114,7 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
             </Grid>
           )}
 
-          <Grid item style={{marginTop: '0.3em'}}>
+          <Grid item style={{ marginTop: "0.3em" }}>
             <Typography variant={"body1"} className={classes.userSubText}>
               Member Since - {format(user.createdAt.toDate(), "do LLLL yyyy")}
             </Typography>
@@ -108,19 +124,18 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
           <Grid item style={{ marginTop: "0.8em" }}>
             <Grid item container>
               {!user.disabled && (
-                  <Grid item style={{ marginRight: "0.5em" }}>
-                    <Button
-                        variant="outlined"
-                        size={"small"}
-                        style={{ color: theme.palette.primary.main }}
-                        fullWidth
-                        onClick={() => toggleUserType(user.uid, user.admin)}
-                    >
-                      {user.admin ? "Make User" : "Make Admin"}
-                    </Button>
-                  </Grid>
+                <Grid item style={{ marginRight: "0.5em" }}>
+                  <Button
+                    variant="outlined"
+                    size={"small"}
+                    style={{ color: theme.palette.primary.main }}
+                    fullWidth
+                    onClick={() => toggleUserType(user.uid, user.admin)}
+                  >
+                    {user.admin ? "Make User" : "Make Admin"}
+                  </Button>
+                </Grid>
               )}
-
 
               <Grid item style={{ marginRight: "0.5em" }}>
                 <Button
@@ -140,7 +155,9 @@ const UserItem = ({ user, toggleUserType, toggleUserDisable, deleteUser, isAdmin
                   size={"small"}
                   style={{ color: theme.palette.error.main }}
                   fullWidth
-                  onClick={() => deleteUser(user.id, user.photoName, user.photoURL, isAdmin)}
+                  onClick={() =>
+                    deleteUser(user.id, user.photoName, user.photoURL, isAdmin)
+                  }
                 >
                   Delete
                 </Button>

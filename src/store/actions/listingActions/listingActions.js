@@ -157,8 +157,8 @@ export const fetchListing = (id, userId, noLoader) => {
       // REVIEWS
       if (!reviewQuery.empty) {
         for (let i = 0; i < reviewQuery.docs.length; i++) {
-          const userId = reviewQuery.docs[i].data().addedByUid;
-          let userQuery = await usersQuery.doc(`${userId}`).get();
+          const user = reviewQuery.docs[i].data().addedByUid;
+          let userQuery = await usersQuery.doc(`${user}`).get();
 
           let review = {
             id: reviewQuery.docs[i].id,

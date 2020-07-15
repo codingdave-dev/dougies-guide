@@ -6,6 +6,7 @@ import Rating from "@material-ui/lab/Rating";
 import format from 'date-fns/format'
 
 const DetailedReviews = ({ listing, classes }) => {
+
   return (
     <Fragment>
       <Grid item container direction={"column"}>

@@ -11,6 +11,11 @@ const DetailedPhotos = ({ listing, classes }) => {
             Photos:
           </Typography>
         </Grid>
+        {listing.photos.length < 1 && (
+            <Grid item style={{marginTop: 20}}>
+              <Typography variant={"subtitle2"}>No Photos!</Typography>
+            </Grid>
+        )}
         <Grid item container spacing={1} style={{ marginTop: 4 }}>
           {listing.photos &&
             listing.photos.map((photo) => (

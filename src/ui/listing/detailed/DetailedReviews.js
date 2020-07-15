@@ -16,6 +16,13 @@ const DetailedReviews = ({ listing, classes }) => {
           </Typography>
         </Grid>
 
+          {listing.reviews.length < 1 && (
+              <Grid item style={{marginTop: 20}}>
+                  <Typography variant={"subtitle2"}>No User Reviews!</Typography>
+              </Grid>
+          )}
+
+
         {listing.reviews && listing.reviews.map((review) => (
             <Grid key={review.id} item container style={{ marginTop: 20 }}>
               <Grid item>

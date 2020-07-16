@@ -20,11 +20,11 @@ const footerRoutes = [
     name: "Privacy Policy",
     link: "/privacy",
   },
-  // {
-  //   id: 2,
-  //   name: "Terms of Use",
-  //   link: "/terms",
-  // },
+  {
+    id: 2,
+    name: "Terms of Use",
+    link: "/terms",
+  },
   // {
   //   id: 3,
   //   name: "Contact",

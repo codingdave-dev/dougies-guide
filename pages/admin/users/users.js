@@ -80,8 +80,8 @@ const AdminUsers = ({profile, fetchAllAdmins, fetchAllUsers, fetchApprovedUsers,
     toggleUserDisable(id, userDisabled)
   }
 
-  const handleUserDelete = (id, photoName, photoURL, admin) => {
-    deleteUser(id, photoName, photoURL, admin)
+  const handleUserDelete = (id, photoName, photoURL, admin, provider) => {
+    deleteUser(id, photoName, photoURL, admin, provider)
   }
 
   return (

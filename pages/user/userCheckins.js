@@ -107,7 +107,7 @@ const UserFavourites = ({
               >
                 <Grid item>
                   <Typography variant={"h1"} className={classes.title}>
-                    {profile.firstName}'s Checkins
+                    {profile.provider === 'email' ? profile.firstName + `'s Checkins` : 'Your Checkins'}
                   </Typography>
                 </Grid>
 

@@ -3,6 +3,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const dougiesPurple = '#7100E3'
 const white = '#fff'
 const textGrey = '#4d4d4d'
+const facebook = '#4267B2'
+const google = '#db3236'
 
 
 // Create a theme instance.
@@ -17,6 +19,10 @@ const theme = createMuiTheme({
         common: {
             grey: textGrey
         },
+        social: {
+            facebook: facebook,
+            google: google
+        }
     },
     typography: {
         tab: {

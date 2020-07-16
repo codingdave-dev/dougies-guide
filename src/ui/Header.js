@@ -229,7 +229,7 @@ const Header = ({
       },
       {
         name: "Profile",
-        link: `/profile/userProfile?id=${profile.uid}`,
+        link: `/profile/myProfile?id=${profile.uid}`,
         activeIndex: isAdmin ? 5 : 4,
         selectedIndex: 4,
       },

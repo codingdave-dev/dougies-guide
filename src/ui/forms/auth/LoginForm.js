@@ -6,11 +6,13 @@ import Grid from "@material-ui/core/Grid";
 
 import Button from "@material-ui/core/Button";
 import {connect} from "react-redux";
-import {login, resetPassword} from "../../../store/actions/authActions/authActions";
+import {login, resetPassword, socialLogin} from "../../../store/actions/authActions/authActions";
 import Typography from "@material-ui/core/Typography";
+import SocialLogin from "./SocialLogin";
 
 const actions = {
     login,
+  socialLogin,
   resetPassword
 }
 
@@ -30,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LoginForm = ({login, resetPassword, handleSubmit, error, submitting}) => {
+const LoginForm = ({login, socialLogin, resetPassword, handleSubmit, error, submitting}) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -84,8 +86,11 @@ const LoginForm = ({login, resetPassword, handleSubmit, error, submitting}) => {
             {loginScreen ? 'Login' : 'Reset Password'}
           </Button>
         </Grid>
+
+        <SocialLogin socialLogin={socialLogin}/>
+
         {!resetPasswordScreen && (
-            <Grid item style={{marginBottom: "0.8em"}}>
+            <Grid item style={{marginTop: '0.8em', marginBottom: "0.8em"}}>
               <Typography variant={'subtitle2'} className={classes.forgotPassword} align={'center'} onClick={() => handleResetPassword()}>Forgot password?</Typography>
             </Grid>
         )}
@@ -94,6 +99,7 @@ const LoginForm = ({login, resetPassword, handleSubmit, error, submitting}) => {
               <Typography variant={'subtitle2'} className={classes.forgotPassword} align={'center'} onClick={() => handleLogin()}>Login?</Typography>
             </Grid>
         )}
+
 
       </Grid>
     </form>

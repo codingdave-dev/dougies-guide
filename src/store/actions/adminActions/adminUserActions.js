@@ -5,6 +5,7 @@ import {
   FETCH_ALL_USERS,
   FETCH_APPROVED_USERS,
   FETCH_UNAPPROVED_USERS,
+  FETCH_USER_PROFILE,
 } from "../../constants/adminConstants/adminConstants";
 import {
   asyncActionError,
@@ -17,9 +18,7 @@ export const fetchAllAdminsAndUsers = () => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
-    const usersQuery = firestore
-        .collection("users")
-        .orderBy("fullName", "asc");
+    const usersQuery = firestore.collection("users").orderBy("fullName", "asc");
 
     try {
       dispatch(asyncActionStart());
@@ -35,7 +34,10 @@ export const fetchAllAdminsAndUsers = () => {
         allAdminsAndUsers.push(user);
       }
 
-      dispatch({ type: FETCH_ALL_ADMINS_USERS, payload: { allAdminsAndUsers } });
+      dispatch({
+        type: FETCH_ALL_ADMINS_USERS,
+        payload: { allAdminsAndUsers },
+      });
       dispatch(asyncActionFinish());
     } catch (error) {
       dispatch(asyncActionError());
@@ -118,7 +120,8 @@ export const fetchApprovedUsers = () => {
     const usersQuery = firestore
       .collection("users")
       .where("disabled", "==", false)
-      .orderBy("admin", "desc").orderBy('createdAt', 'asc');
+      .orderBy("admin", "desc")
+      .orderBy("createdAt", "asc");
 
     try {
       dispatch(asyncActionStart());
@@ -176,6 +179,36 @@ export const fetchUnapprovedUsers = () => {
   };
 };
 
+// FETCH USER PROFILE
+export const fetchUserProfile = (userId) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const userQuery = firestore.collection("users").doc(`${userId}`);
+
+    console.log(userId)
+    try {
+      dispatch(asyncActionStart());
+      let query = await userQuery.get();
+
+      let userProfile = [];
+
+      let user = {
+        id: query.id,
+        ...query.data(),
+      };
+
+      userProfile.push(user);
+
+      dispatch({ type: FETCH_USER_PROFILE, payload: { userProfile } });
+      dispatch(asyncActionFinish());
+    } catch (error) {
+      dispatch(asyncActionError());
+      console.log(error);
+    }
+  };
+};
+
 // TOGGLE USER/ADMIN
 export const toggleUserType = (id, userType) => {
   return async (dispatch, getState, { getFirestore }) => {
@@ -223,7 +256,7 @@ export const toggleUserDisable = (id, userDisabled) => {
 };
 
 // DELETE USER
-export const deleteUser = (id, photoName, photoURL, admin) => {
+export const deleteUser = (id, photoName, photoURL, admin, provider) => {
   return async (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -247,7 +280,7 @@ export const deleteUser = (id, photoName, photoURL, admin) => {
               // DELETE USER FIRESTORE DATA
               query.doc(`${id}`).delete();
 
-              if (photoURL === '/assets/avatar/user.png') {
+              if (photoURL === "/assets/avatar/user.png" || provider === 'facebook' || provider === 'google') {
                 dispatch(fetchAllAdmins());
                 dispatch(fetchAllUsers());
                 dispatch(fetchApprovedUsers());
@@ -261,8 +294,6 @@ export const deleteUser = (id, photoName, photoURL, admin) => {
                 dispatch(fetchUnapprovedUsers());
                 dispatch(asyncActionFinish());
               }
-
-
             }
           })
           .catch((error) => {
@@ -271,7 +302,6 @@ export const deleteUser = (id, photoName, photoURL, admin) => {
               return;
             }
           });
-
       } catch (error) {
         dispatch(asyncActionError());
         console.log(error);

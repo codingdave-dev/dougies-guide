@@ -6,11 +6,13 @@ import Grid from "@material-ui/core/Grid";
 import { combineValidators, composeValidators, matchesField, isRequired } from "revalidate";
 import Button from "@material-ui/core/Button";
 import {connect} from "react-redux";
-import {registerUser} from "../../../store/actions/authActions/authActions";
+import {registerUser, socialLogin} from "../../../store/actions/authActions/authActions";
 import Typography from "@material-ui/core/Typography";
+import SocialLogin from "./SocialLogin";
 
 const actions = {
-    registerUser
+    registerUser,
+    socialLogin
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +37,7 @@ const validate = combineValidators({
     )()
 });
 
-const RegisterForm = ({registerUser, handleSubmit, error, submitting}) => {
+const RegisterForm = ({registerUser, socialLogin, handleSubmit, error, submitting}) => {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -98,6 +100,7 @@ const RegisterForm = ({registerUser, handleSubmit, error, submitting}) => {
                         SIGN UP
                     </Button>
                 </Grid>
+                <SocialLogin socialLogin={socialLogin}/>
             </Grid>
         </form>
     );

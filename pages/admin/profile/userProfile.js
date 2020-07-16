@@ -9,9 +9,9 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { connect } from "react-redux";
 import format from "date-fns/format";
-import { openDialog } from "../../src/store/actions/dialogActions/dialogActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Router from "next/router";
+import Router, { withRouter } from "next/router";
+import { fetchUserProfile } from "../../../src/store/actions/adminActions/adminUserActions";
 
 const useStyles = makeStyles((theme) => ({
   spinner: {
@@ -49,18 +49,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const mapStateToProps = (state) => {
+  let userProfile = [];
+
+  if (state.admin.userProfile && state.admin.userProfile.length > 0) {
+    userProfile = state.admin.userProfile[0];
+  }
+
   return {
     loading: state.loading.loading,
     auth: state.firebase.auth,
     profile: state.firebase.profile,
+    userProfile,
   };
 };
 
 const actions = {
-  openDialog,
+  fetchUserProfile,
 };
 
-const UserProfile = ({ loading, auth, profile, openDialog }) => {
+const UserProfile = ({
+  fetchUserProfile,
+  router,
+  loading,
+  auth,
+  profile,
+  userProfile,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -68,11 +82,14 @@ const UserProfile = ({ loading, auth, profile, openDialog }) => {
   const authenticated =
     auth.isLoaded && !auth.isEmpty && profile.isLoaded && !profile.isEmpty;
 
+  const userId = router.query.id;
+
   useEffect(() => {
     if (!authenticated) {
       Router.push({ pathname: "/" });
     }
-  }, [authenticated]);
+    fetchUserProfile(userId);
+  }, [authenticated, fetchUserProfile, userId]);
 
   return (
     <Fragment>
@@ -91,15 +108,19 @@ const UserProfile = ({ loading, auth, profile, openDialog }) => {
               </Grid>
             )}
             {!loading && (
-              <img className={classes.avatar} src={profile.photoURL} alt="" />
+              <img
+                className={classes.avatar}
+                src={userProfile.photoURL}
+                alt=""
+              />
             )}
           </Grid>
           <Grid item>
-            <Typography variant={"h3"}>{profile.fullName}</Typography>
+            <Typography variant={"h3"}>{userProfile.fullName}</Typography>
           </Grid>
           <Grid item>
             <Typography variant={"body1"}>
-              {profile.admin ? "Administrator" : "User"}
+              {userProfile.admin ? "Administrator" : "User"}
             </Typography>
           </Grid>
 
@@ -136,7 +157,7 @@ const UserProfile = ({ loading, auth, profile, openDialog }) => {
                 </Grid>
                 <Grid item>
                   <Typography variant={"subtitle2"}>
-                    {profile.fullName}
+                    {userProfile.fullName}
                   </Typography>
                 </Grid>
               </Grid>
@@ -152,7 +173,9 @@ const UserProfile = ({ loading, auth, profile, openDialog }) => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant={"subtitle2"}>{profile.email}</Typography>
+                  <Typography variant={"subtitle2"}>
+                    {userProfile.email}
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -166,72 +189,72 @@ const UserProfile = ({ loading, auth, profile, openDialog }) => {
                     Member Since:
                   </Typography>
                 </Grid>
-                {profile.createdAt && (
+                {userProfile.createdAt && (
                   <Grid item>
                     <Typography variant={"subtitle2"}>
-                      {format(profile.createdAt.toDate(), "do LLLL yyyy")}
+                      {format(userProfile.createdAt.toDate(), "do LLLL yyyy")}
                     </Typography>
                   </Grid>
                 )}
               </Grid>
             </Grid>
-            <Grid item>
-              <Grid
-                item
-                container
-                direction={matchesSM ? "column" : "row"}
-                spacing={1}
-                style={{ marginTop: "0.5em" }}
-              >
-                <Grid item>
-                  <Button
-                    variant="outlined"
-                    size={"small"}
-                    style={{
-                      color: theme.palette.primary.main,
-                      borderColor: theme.palette.primary.main,
-                    }}
-                    startIcon={<CreateIcon />}
-                    fullWidth
-                    onClick={() => openDialog("EditProfileDialog")}
-                  >
-                    Edit Profile
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="outlined"
-                    size={"small"}
-                    style={{
-                      color: theme.palette.primary.main,
-                      borderColor: theme.palette.primary.main,
-                    }}
-                    startIcon={<AddAPhotoIcon />}
-                    fullWidth
-                    onClick={() =>
-                      openDialog("UserProfileImageDialog", { profile })
-                    }
-                  >
-                    Change Profile Photo
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="outlined"
-                    size={"small"}
-                    style={{
-                      color: theme.palette.error.main,
-                      borderColor: theme.palette.error.main,
-                    }}
-                    startIcon={<VpnKeyIcon />}
-                    fullWidth
-                    onClick={() => openDialog("ChangeUserPasswordDialog")}
-                  >
-                    Change Password
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
+            {/*<Grid item>*/}
+            {/*    <Grid*/}
+            {/*        item*/}
+            {/*        container*/}
+            {/*        direction={matchesSM ? "column" : "row"}*/}
+            {/*        spacing={1}*/}
+            {/*        style={{ marginTop: "0.5em" }}*/}
+            {/*    >*/}
+            {/*        <Grid item>*/}
+            {/*            <Button*/}
+            {/*                variant="outlined"*/}
+            {/*                size={"small"}*/}
+            {/*                style={{*/}
+            {/*                    color: theme.palette.primary.main,*/}
+            {/*                    borderColor: theme.palette.primary.main,*/}
+            {/*                }}*/}
+            {/*                startIcon={<CreateIcon />}*/}
+            {/*                fullWidth*/}
+            {/*                onClick={() => openDialog("EditProfileDialog")}*/}
+            {/*            >*/}
+            {/*                Edit Profile*/}
+            {/*            </Button>*/}
+            {/*        </Grid>*/}
+            {/*        <Grid item>*/}
+            {/*            <Button*/}
+            {/*                variant="outlined"*/}
+            {/*                size={"small"}*/}
+            {/*                style={{*/}
+            {/*                    color: theme.palette.primary.main,*/}
+            {/*                    borderColor: theme.palette.primary.main,*/}
+            {/*                }}*/}
+            {/*                startIcon={<AddAPhotoIcon />}*/}
+            {/*                fullWidth*/}
+            {/*                onClick={() =>*/}
+            {/*                    openDialog("UserProfileImageDialog", { profile })*/}
+            {/*                }*/}
+            {/*            >*/}
+            {/*                Change Profile Photo*/}
+            {/*            </Button>*/}
+            {/*        </Grid>*/}
+            {/*        <Grid item>*/}
+            {/*            <Button*/}
+            {/*                variant="outlined"*/}
+            {/*                size={"small"}*/}
+            {/*                style={{*/}
+            {/*                    color: theme.palette.error.main,*/}
+            {/*                    borderColor: theme.palette.error.main,*/}
+            {/*                }}*/}
+            {/*                startIcon={<VpnKeyIcon />}*/}
+            {/*                fullWidth*/}
+            {/*                onClick={() => openDialog("ChangeUserPasswordDialog")}*/}
+            {/*            >*/}
+            {/*                Change Password*/}
+            {/*            </Button>*/}
+            {/*        </Grid>*/}
+            {/*    </Grid>*/}
+            {/*</Grid>*/}
 
             {/*ANALYTICS*/}
             <Grid item style={{ marginTop: "1em" }}>
@@ -299,4 +322,4 @@ const UserProfile = ({ loading, auth, profile, openDialog }) => {
   );
 };
 
-export default connect(mapStateToProps, actions)(UserProfile);
+export default withRouter(connect(mapStateToProps, actions)(UserProfile));

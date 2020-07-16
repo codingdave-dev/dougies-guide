@@ -90,7 +90,7 @@ const ListingDescriptionForm = ({ onBack, cancel,  handleSubmit, error, submitti
                     <Grid item style={{marginBottom: "1em" }}>
                         <Button
                             variant="outlined"
-                            color={theme.palette.common.grey}
+                            style={{color: theme.palette.common.grey }}
                             fullWidth
                             onClick={cancel}
                         >

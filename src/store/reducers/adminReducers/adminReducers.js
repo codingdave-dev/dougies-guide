@@ -7,7 +7,7 @@ import {
     FETCH_UNAPPROVED_USERS,
     FETCH_ALL_LISTINGS,
     FETCH_APPROVED_LISTINGS,
-    FETCH_UNAPPROVED_LISTINGS, FETCH_BOARD_MEMBERS, FETCH_ALL_ADMINS_USERS, FETCH_BOARD_ROLES
+    FETCH_UNAPPROVED_LISTINGS, FETCH_BOARD_MEMBERS, FETCH_ALL_ADMINS_USERS, FETCH_BOARD_ROLES, FETCH_USER_PROFILE
 } from "../../constants/adminConstants/adminConstants";
 
 const initialState = {
@@ -20,7 +20,8 @@ const initialState = {
     approvedListings: [],
     unapprovedListings: [],
     boardMembers: [],
-    boardRoles: []
+    boardRoles: [],
+    userProfile: []
 }
 
 //USER REDUCERS
@@ -97,6 +98,14 @@ const fetchBoardRoles = (state, payload) => {
     }
 }
 
+// USER PROFILE
+const fetchUserProfile = (state, payload) => {
+    return {
+        ...state,
+        userProfile: payload.userProfile
+    }
+}
+
 export default createReducer(initialState, {
     [FETCH_ALL_ADMINS_USERS]: fetchAllAdminsAndUsers,
     [FETCH_ALL_ADMINS]: fetchAllAdmins,
@@ -107,5 +116,6 @@ export default createReducer(initialState, {
     [FETCH_APPROVED_LISTINGS]: fetchApprovedListings,
     [FETCH_UNAPPROVED_LISTINGS]: fetchUnapprovedListings,
     [FETCH_BOARD_MEMBERS]: fetchBoardMembers,
-    [FETCH_BOARD_ROLES]: fetchBoardRoles
+    [FETCH_BOARD_ROLES]: fetchBoardRoles,
+    [FETCH_USER_PROFILE]: fetchUserProfile,
 })

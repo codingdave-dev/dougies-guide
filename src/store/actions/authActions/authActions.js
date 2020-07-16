@@ -20,6 +20,7 @@ export const registerUser = (creds) => {
         email: creds.email,
         admin: false,
         disabled: false,
+        provider: 'Email',
         createdAt: firestore.FieldValue.serverTimestamp(),
         photoURL: '/assets/avatar/user.png'
       }
@@ -144,3 +145,36 @@ export const logout = () => {
     } catch (error) {}
   };
 };
+
+
+// SOCIAL LOGIN
+export const socialLogin = (selectedProvider) => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    const firebase = getFirebase()
+    const firestore = getFirestore()
+
+    try {
+      dispatch(closeDialog())
+      let user = await firebase.login({
+        provider: selectedProvider,
+        type: 'popup'
+      })
+
+      if (user.additionalUserInfo.isNewUser) {
+        await firestore.set(`users/${user.user.uid}`, {
+          fullName: user.profile.displayName,
+          photoURL: user.profile.avatarUrl,
+          email: user.profile.email,
+          uid: user.user.uid,
+          admin: false,
+          disabled: false,
+          provider: selectedProvider,
+          createdAt: firestore.FieldValue.serverTimestamp(),
+        })
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

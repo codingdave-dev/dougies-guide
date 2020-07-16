@@ -60,7 +60,7 @@ const BoardItem = ({ member, setValue }) => {
         style={{ cursor: "pointer" }}
         onClick={() => {
           Router.push({
-            pathname: "/profile/userProfile",
+            pathname: "/profile/profile",
             query: { id: member.uid },
           });
         }}
@@ -79,7 +79,7 @@ const BoardItem = ({ member, setValue }) => {
             style={{ cursor: "pointer" }}
             onClick={() => {
               Router.push({
-                pathname: "/profile/userProfile",
+                pathname: "/profile/profile",
                 query: { id: member.uid },
               });
             }}

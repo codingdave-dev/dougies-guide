@@ -70,7 +70,7 @@ const UserItem = ({
         style={{cursor: 'pointer'}}
         onClick={() => {
           Router.push({
-            pathname: "/profile/userProfile",
+            pathname: "/admin/profile/userProfile",
             query: { id: user.uid },
           });
         }}
@@ -89,7 +89,7 @@ const UserItem = ({
             style={{cursor: 'pointer'}}
             onClick={() => {
               Router.push({
-                pathname: "/profile/userProfile",
+                pathname: "/admin/profile/userProfile",
                 query: { id: user.uid },
               });
             }}
@@ -156,7 +156,7 @@ const UserItem = ({
                   style={{ color: theme.palette.error.main }}
                   fullWidth
                   onClick={() =>
-                    deleteUser(user.id, user.photoName, user.photoURL, isAdmin)
+                    deleteUser(user.id, user.photoName, user.photoURL, isAdmin, user.provider)
                   }
                 >
                   Delete

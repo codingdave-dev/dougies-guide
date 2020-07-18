@@ -19,11 +19,6 @@ exports.deleteUser = functions.https.onRequest(async (request, response) => {
         console.log("Deleted User");
         response.status(200).send("Deleted User");
 
-        // admin
-        //   .storage()
-        //   .bucket()
-        //   .deleteFiles({ prefix: `user_profile_photos/${id}/${photoName}` });
-
         return;
       })
       .catch((error) => {

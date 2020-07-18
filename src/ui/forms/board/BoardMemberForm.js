@@ -49,7 +49,7 @@ const BoardMemberForm = ({ allAdminsAndUsers, boardRoles, handleSubmit, error, s
       const title = values.title
       const description = values.description
 
-      createBoardMember(uid, fullName, photoURL, title, description)
+      await createBoardMember(uid, fullName, photoURL, title, description)
       setValue(0)
     } catch (error) {
       console.log(error);

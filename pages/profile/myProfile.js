@@ -299,64 +299,64 @@ const MyProfile = ({ loading, auth, profile, openDialog }) => {
 
 
             {/*ANALYTICS*/}
-            <Grid item style={{ marginTop: "1em" }}>
-              <Grid item container>
-                <Grid item className={classes.textTitleContainer}>
-                  <Typography
-                    variant={"subtitle2"}
-                    className={classes.textTitle}
-                    style={{ fontWeight: 600 }}
-                  >
-                    Analytics
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid item container>
-                <Grid item className={classes.textTitleContainer}>
-                  <Typography
-                    variant={"subtitle2"}
-                    className={classes.textTitle}
-                  >
-                    Number of Posts:
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant={"subtitle2"}>333</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid item container>
-                <Grid item className={classes.textTitleContainer}>
-                  <Typography
-                    variant={"subtitle2"}
-                    className={classes.textTitle}
-                  >
-                    Number of Favourites:
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant={"subtitle2"}>222</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid item container>
-                <Grid item className={classes.textTitleContainer}>
-                  <Typography
-                    variant={"subtitle2"}
-                    className={classes.textTitle}
-                  >
-                    Number of Checkins:
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant={"subtitle2"}>555</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
+            {/*<Grid item style={{ marginTop: "1em" }}>*/}
+            {/*  <Grid item container>*/}
+            {/*    <Grid item className={classes.textTitleContainer}>*/}
+            {/*      <Typography*/}
+            {/*        variant={"subtitle2"}*/}
+            {/*        className={classes.textTitle}*/}
+            {/*        style={{ fontWeight: 600 }}*/}
+            {/*      >*/}
+            {/*        Analytics*/}
+            {/*      </Typography>*/}
+            {/*    </Grid>*/}
+            {/*  </Grid>*/}
+            {/*</Grid>*/}
+            {/*<Grid item>*/}
+            {/*  <Grid item container>*/}
+            {/*    <Grid item className={classes.textTitleContainer}>*/}
+            {/*      <Typography*/}
+            {/*        variant={"subtitle2"}*/}
+            {/*        className={classes.textTitle}*/}
+            {/*      >*/}
+            {/*        Number of Posts:*/}
+            {/*      </Typography>*/}
+            {/*    </Grid>*/}
+            {/*    <Grid item>*/}
+            {/*      <Typography variant={"subtitle2"}>333</Typography>*/}
+            {/*    </Grid>*/}
+            {/*  </Grid>*/}
+            {/*</Grid>*/}
+            {/*<Grid item>*/}
+            {/*  <Grid item container>*/}
+            {/*    <Grid item className={classes.textTitleContainer}>*/}
+            {/*      <Typography*/}
+            {/*        variant={"subtitle2"}*/}
+            {/*        className={classes.textTitle}*/}
+            {/*      >*/}
+            {/*        Number of Favourites:*/}
+            {/*      </Typography>*/}
+            {/*    </Grid>*/}
+            {/*    <Grid item>*/}
+            {/*      <Typography variant={"subtitle2"}>222</Typography>*/}
+            {/*    </Grid>*/}
+            {/*  </Grid>*/}
+            {/*</Grid>*/}
+            {/*<Grid item>*/}
+            {/*  <Grid item container>*/}
+            {/*    <Grid item className={classes.textTitleContainer}>*/}
+            {/*      <Typography*/}
+            {/*        variant={"subtitle2"}*/}
+            {/*        className={classes.textTitle}*/}
+            {/*      >*/}
+            {/*        Number of Checkins:*/}
+            {/*      </Typography>*/}
+            {/*    </Grid>*/}
+            {/*    <Grid item>*/}
+            {/*      <Typography variant={"subtitle2"}>555</Typography>*/}
+            {/*    </Grid>*/}
+            {/*  </Grid>*/}
+            {/*</Grid>*/}
           </Grid>
         </Grid>
       )}

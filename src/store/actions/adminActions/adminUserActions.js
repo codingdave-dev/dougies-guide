@@ -268,7 +268,7 @@ export const deleteUser = (id, photoName, photoURL, admin, provider) => {
         dispatch(asyncActionStart());
         axios
           .get(
-            "https://us-central1-dougiesguide-dadc1.cloudfunctions.net/deleteUser",
+            "https://us-central1-dougiesguide-c9512.cloudfunctions.net/deleteUser",
             {
               params: {
                 id: id,

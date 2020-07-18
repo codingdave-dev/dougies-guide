@@ -25,11 +25,11 @@ const footerRoutes = [
     name: "Terms of Use",
     link: "/terms",
   },
-  // {
-  //   id: 3,
-  //   name: "Contact",
-  //   link: "/contact",
-  // },
+  {
+    id: 3,
+    name: "Contact",
+    link: "/contact",
+  },
 ];
 
 function Copyright({ websiteName, websiteURL }) {

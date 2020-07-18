@@ -13,7 +13,7 @@ import DialogManager from "../src/dialogs/DialogManager";
 import Footer from "../src/ui/Footer";
 
 import ReactGA from 'react-ga'
-// ReactGA.initialize('UA-172926224-1')
+ReactGA.initialize('UA-172926224-1')
 
 const MyApp = (props) => {
   const { Component, pageProps } = props;

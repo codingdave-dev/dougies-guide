@@ -156,7 +156,6 @@ const Index = ({
     }
   };
 
-  console.log(searchResults)
 
 
   return (

@@ -138,11 +138,74 @@ export const deleteListing = (id, photoName, photoURL) => {
     const firestore = getFirestore();
 
     let query = firestore.collection("listings").doc(`${id}`);
+    let photosQuery = firestore
+      .collection("listings")
+      .doc(`${id}`)
+      .collection("photos");
+    let reviewsQuery = firestore
+      .collection("user_reviews")
+      .where("listingId", "==", `${id}`);
+    let favouritesQuery = firestore
+      .collection("user_favourites")
+      .where("listingId", "==", `${id}`);
+    let checkinsQuery = firestore
+      .collection("user_checkins")
+      .where("listingId", "==", `${id}`);
 
     try {
       dispatch(asyncActionStart());
 
+      // DELETE FIRESTORE PHOTOS
       await dispatch(deleteListingPhotos(id, photoName, photoURL));
+
+      let photoQuery = await photosQuery.get();
+      let reviewQuery = await reviewsQuery.get();
+      let favouriteQuery = await favouritesQuery.get();
+      let checkinQuery = await checkinsQuery.get();
+
+
+      // PHOTOS
+      if (!photoQuery.empty) {
+        let photoId = "";
+        for (let i = 0; i < photoQuery.docs.length; i++) {
+          photoId = photoQuery.docs[i].id;
+          await photosQuery.doc(`${photoId}`).delete();
+        }
+      }
+
+      // REVIEWS
+      if (!reviewQuery.empty) {
+        let reviewId = "";
+        for (let i = 0; i < reviewQuery.docs.length; i++) {
+          reviewId = reviewQuery.docs[i].id;
+          await firestore
+            .collection("user_reviews")
+            .doc(`${reviewId}`)
+            .delete();
+        }
+      }
+      // FAVOURITES
+      if (!favouriteQuery.empty) {
+        let favouriteId = "";
+        for (let i = 0; i < favouriteQuery.docs.length; i++) {
+          favouriteId = favouriteQuery.docs[i].id;
+          await firestore
+            .collection("user_favourites")
+            .doc(`${favouriteId}`)
+            .delete();
+        }
+      }
+      // CHECKINS
+      if (!checkinQuery.empty) {
+        let checkinId = "";
+        for (let i = 0; i < checkinQuery.docs.length; i++) {
+          checkinId = checkinQuery.docs[i].id;
+          await firestore
+            .collection("user_checkins")
+            .doc(`${checkinId}`)
+            .delete();
+        }
+      }
 
       await query.delete();
 

@@ -24,6 +24,8 @@ import { openDialog } from "../store/actions/dialogActions/dialogActions";
 import { connect } from "react-redux";
 import { logout } from "../store/actions/authActions/authActions";
 
+import ReactGA from 'react-ga'
+
 const actions = {
   openDialog,
   logout,
@@ -166,6 +168,8 @@ const Header = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
 
+  const [previousURL, setPreviousURL] = useState('')
+
   // AUTHENTICATION
   const authenticated =
     auth.isLoaded && !auth.isEmpty && profile.isLoaded && !profile.isEmpty;
@@ -288,6 +292,11 @@ const Header = ({
   };
 
   useEffect(() => {
+    if (previousURL !== window.location.pathname) {
+      setPreviousURL(window.location.pathname)
+      ReactGA.pageview(window.location.pathname + window.location.search)
+    }
+
     [...authMenuOptions, ...adminAuthRoutes, ...authRoutes, ...routes].forEach(
       (route) => {
         switch (window.location.pathname) {

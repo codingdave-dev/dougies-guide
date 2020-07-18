@@ -10,6 +10,7 @@ import {
 } from "../src/store/actions/listingActions/listingActions";
 import ListingItem from "../src/ui/listing/listingItem/ListingItem";
 import Loader from "../src/ui/Loader";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -100,7 +101,7 @@ const mapStateToProps = (state) => {
   return {
     loading: state.loading.loading,
     popularListings: popularListings,
-    allListings: allListings,
+    allListings,
   };
 };
 
@@ -140,6 +141,7 @@ const Index = ({
       )
     );
 
+
     const searchListings = [...allListings];
     matches.map((listing, index) =>
       listing.includes(true)
@@ -154,8 +156,36 @@ const Index = ({
     }
   };
 
+  console.log(searchResults)
+
+
   return (
     <Grid container direction={"column"} justify={"center"}>
+      <Head>
+        <title key={"title"}>Home | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "There's nothing like the essence of stale beer, broken dreams and shame in a dark, dank joint on a hot sunny day off."
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"The home of Dive Bar and Fine Dining | Home"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/"}
+        />
+      </Head>
       <Grid item container justify={"center"}>
         <Grid item>
           <Typography variant={"h1"} className={classes.title}>
@@ -213,7 +243,7 @@ const Index = ({
       </Grid>
 
       {/*SEARCH RESULTS*/}
-      {searchResults.length > 1 && (
+      {searchResults.length > 0 && (
         <Grid
           container
           direction={"column"}

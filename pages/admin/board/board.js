@@ -17,6 +17,7 @@ import {
 import AddBoardMember from "./addBoardMember";
 import AddBoardMemberRole from "./addBoardMemberRole";
 import { openDialog } from "../../../src/store/actions/dialogActions/dialogActions";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   // ADD STYLES HERE
@@ -73,6 +74,31 @@ const AdminBoardMembers = ({
       justify={"center"}
       style={{ marginTop: "1em" }}
     >
+      <Head>
+        <title key={"title"}>Board - Admin | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "Admin Area for our Board Members"
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"Board Members | Board"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/admin"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/admin"}
+        />
+      </Head>
       <Grid item>
         <Tabs
           value={value}

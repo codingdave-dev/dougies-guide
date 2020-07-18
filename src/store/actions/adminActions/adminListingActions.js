@@ -181,7 +181,7 @@ export const deleteListingPhotos = (id, photoName, photoURL) => {
         allSubPhotos.push(photo);
       }
 
-      if (allSubPhotos.length > 1) {
+      if (allSubPhotos.length > 0) {
         allSubPhotos.map((photo) => {
           firebase.deleteFile(`${id}/sub_photos/${photo.photoName}`);
           photosQuery.doc(`${photo.id}`).delete();

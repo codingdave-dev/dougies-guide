@@ -14,6 +14,7 @@ import {
 } from "../../src/store/actions/userActions/userActions";
 import Alert from "@material-ui/lab/Alert";
 import Loader from "../../src/ui/Loader";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   listingWrapper: {
@@ -98,6 +99,31 @@ const UserFavourites = ({
       <Fragment>
         {authenticated && (
             <Grid container direction={"column"} alignItems={"center"}>
+              <Head>
+                <title key={"title"}>Your Checkins | Dougies Guide</title>
+                <meta
+                    name={"description"}
+                    key={"description"}
+                    content={
+                      "View Your Checkins"
+                    }
+                />
+                <meta
+                    property={"og:title"}
+                    content={"Your Checkins | Dougies Guide"}
+                    key={"og:title"}
+                />
+                <meta
+                    property={"og:url"}
+                    content={"dougiesguide.com/user/userCheckins"}
+                    key={"og:url"}
+                />
+                <link
+                    rel="canonical"
+                    key={"canonical"}
+                    href={"https://dougiesguide.com/user/userCheckins"}
+                />
+              </Head>
               <Grid
                   item
                   container
@@ -107,7 +133,7 @@ const UserFavourites = ({
               >
                 <Grid item>
                   <Typography variant={"h1"} className={classes.title}>
-                    {profile.provider === 'email' ? profile.firstName + `'s Checkins` : 'Your Checkins'}
+                    {profile.provider === 'Email' ? profile.firstName + `'s Checkins` : 'Your Checkins'}
                   </Typography>
                 </Grid>
 

@@ -12,6 +12,9 @@ import Header from "../src/ui/Header";
 import DialogManager from "../src/dialogs/DialogManager";
 import Footer from "../src/ui/Footer";
 
+import ReactGA from 'react-ga'
+// ReactGA.initialize('UA-172926224-1')
+
 const MyApp = (props) => {
   const { Component, pageProps } = props;
   const store = useStore(pageProps.initialReduxState);

@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Typography from "@material-ui/core/Typography";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   privacyWrapper: {
@@ -53,6 +54,31 @@ const Privacy = () => {
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Grid container alignItems={"center"} direction={"column"}>
+      <Head>
+        <title key={"title"}>Privacy | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "Our Privacy Statement"
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"Privacy Statement | Privacy"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/privacy"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/privacy"}
+        />
+      </Head>
       <Grid
         item
         container

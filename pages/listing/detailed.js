@@ -23,6 +23,7 @@ import DetailedInfomation from "../../src/ui/listing/detailed/DetailedInfomation
 import DetailedActivities from "../../src/ui/listing/detailed/DetailedActivities";
 import DetailedExtras from "../../src/ui/listing/detailed/DetailedExtras";
 import Loader from "../../src/ui/Loader";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -234,6 +235,31 @@ const ListingDetailed = ({
 
   return (
     <Grid container direction={"column"} alignItems={"center"}>
+      <Head>
+        <title key={"title"}>Detailed Listing | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "View detailed information for a listing."
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"Detailed Listing | Listing"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/listing/detailed"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/listing/detailed"}
+        />
+      </Head>
 
       {loading && <Loader pageLoader/>}
       {/*PHOTO & ADDRESS*/}

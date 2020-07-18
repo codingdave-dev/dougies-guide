@@ -16,6 +16,7 @@ import {
   fetchUnapprovedUsers, toggleUserDisable, toggleUserType
 } from "../../../src/store/actions/adminActions/adminUserActions";
 import AllAdmins from "./allAdmins";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   // ADD STYLES HERE
@@ -92,6 +93,31 @@ const AdminUsers = ({profile, fetchAllAdmins, fetchAllUsers, fetchApprovedUsers,
       justify={"center"}
       style={{ marginTop: "1em" }}
     >
+      <Head>
+        <title key={"title"}>Users - Admin | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "Admin Area for our Users"
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"Users | User"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/admin"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/admin"}
+        />
+      </Head>
       <Grid item>
         <Tabs
           value={value}

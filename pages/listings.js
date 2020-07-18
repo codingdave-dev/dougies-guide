@@ -11,6 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import ListingItem from "../src/ui/listing/listingItem/ListingItem";
 import Loader from "../src/ui/Loader";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   listingWrapper: {
@@ -70,6 +71,31 @@ const Listings = ({
 
   return (
     <Grid container direction={"column"} alignItems={"center"}>
+      <Head>
+        <title key={"title"}>Listings | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "View all listings added by your fellow roadies."
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"Dives and Restaurants | Listings"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/listings"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/listings"}
+        />
+      </Head>
       <Grid
         item
         container

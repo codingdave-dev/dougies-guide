@@ -9,6 +9,7 @@ import ListingDescription from "../../src/ui/forms/listing/ListingDescriptionFor
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import {createNewListing} from "../../src/store/actions/listingActions/listingActions";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -50,6 +51,31 @@ const NewListing = ({createNewListing, handleSubmit}) => {
   };
   return (
     <Grid container direction={"column"} alignItems={"center"}>
+      <Head>
+        <title key={"title"}>New Listing | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "Add a New Listing"
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"Add New Listing | Listing"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/listing/newListing"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/listing/newListing"}
+        />
+      </Head>
       {/*HEADER*/}
       <Grid item>
         <Typography variant={"h1"} className={classes.title}>

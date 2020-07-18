@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Router from "next/router";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
     contactWrapper: {
@@ -72,6 +73,31 @@ const Contact = () => {
 
     return (
         <Grid container alignItems={"center"} direction={"column"}>
+            <Head>
+                <title key={"title"}>Contact Us | Dougies Guide</title>
+                <meta
+                    name={"description"}
+                    key={"description"}
+                    content={
+                        "Contact Us if you feel the need to."
+                    }
+                />
+                <meta
+                    property={"og:title"}
+                    content={"Contact the dirt ball roadie | Contact"}
+                    key={"og:title"}
+                />
+                <meta
+                    property={"og:url"}
+                    content={"dougiesguide.com/contact"}
+                    key={"og:url"}
+                />
+                <link
+                    rel="canonical"
+                    key={"canonical"}
+                    href={"https://dougiesguide.com/contact"}
+                />
+            </Head>
             <Grid item
                   container
                   direction={"column"}

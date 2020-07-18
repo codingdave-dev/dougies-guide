@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   aboutWrapper: {
@@ -50,6 +51,31 @@ const About = () => {
 
   return (
     <Grid container direction={"column"} alignItems={"center"}>
+      <Head>
+        <title key={"title"}>About Us | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "About Dougies Guide to fine dining and dive bars."
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"Bringing Dive Bars to Roadies | About"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/about"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/about"}
+        />
+      </Head>
       <Grid
         item
         container

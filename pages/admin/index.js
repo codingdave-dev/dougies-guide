@@ -9,6 +9,7 @@ import Tab from "@material-ui/core/Tab";
 import AdminUsers from "./users/users";
 import AdminListings from "./listings/listings";
 import AdminBoardMembers from "./board/board";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   // ADD STYLES HERE
@@ -72,6 +73,31 @@ const Index = ({ auth, profile, admin }) => {
       alignItems={"center"}
       justify={"center"}
     >
+      <Head>
+        <title key={"title"}>Admin Area | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "Admin Area"
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"Admin Area | Dougies Guide"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/admin"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/admin"}
+        />
+      </Head>
       {authenticated && authenticated && (
         <Fragment>
           <Grid item>

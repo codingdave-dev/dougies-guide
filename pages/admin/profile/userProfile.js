@@ -12,6 +12,7 @@ import format from "date-fns/format";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Router, { withRouter } from "next/router";
 import { fetchUserProfile } from "../../../src/store/actions/adminActions/adminUserActions";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   spinner: {
@@ -95,6 +96,31 @@ const UserProfile = ({
     <Fragment>
       {authenticated && (
         <Grid container direction={"column"} alignItems={"center"}>
+          <Head>
+            <title key={"title"}>User Profile - Admin | Dougies Guide</title>
+            <meta
+                name={"description"}
+                key={"description"}
+                content={
+                  "Admin Area for User Profile"
+                }
+            />
+            <meta
+                property={"og:title"}
+                content={"User Profile | User"}
+                key={"og:title"}
+            />
+            <meta
+                property={"og:url"}
+                content={"dougiesguide.com/admin"}
+                key={"og:url"}
+            />
+            <link
+                rel="canonical"
+                key={"canonical"}
+                href={"https://dougiesguide.com/admin"}
+            />
+          </Head>
           <Grid item>
             {loading && (
               <Grid

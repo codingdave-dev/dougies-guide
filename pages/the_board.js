@@ -9,6 +9,7 @@ import { getBoardMembers } from "../src/store/actions/boardMemberActions/boardMe
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import Loader from "../src/ui/Loader";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   boardWrapper: {
@@ -101,6 +102,31 @@ const TheBoard = ({ getBoardMembers, board, loading }) => {
 
   return (
     <Grid container direction={"column"} alignItems={"center"}>
+      <Head>
+        <title key={"title"}>The Board | Dougies Guide</title>
+        <meta
+            name={"description"}
+            key={"description"}
+            content={
+              "Meet our Board and Ambassador Members"
+            }
+        />
+        <meta
+            property={"og:title"}
+            content={"TOur Board Members | The Board"}
+            key={"og:title"}
+        />
+        <meta
+            property={"og:url"}
+            content={"dougiesguide.com/the_board"}
+            key={"og:url"}
+        />
+        <link
+            rel="canonical"
+            key={"canonical"}
+            href={"https://dougiesguide.com/the_board"}
+        />
+      </Head>
       <Grid
         item
         container

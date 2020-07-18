@@ -5,6 +5,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Loader from "../../../src/ui/Loader";
 import BoardItem from "../../../src/ui/admin/BoardItem";
 import {connect} from "react-redux";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
     boardWrapper: {
@@ -49,6 +50,31 @@ const AllBoardMembers = ({loading, setValue, boardMembers, openDialog, fetchBoar
     }, [ fetchBoardMembers])
     return (
         <Grid container direction={"column"} alignItems={"center"}>
+            <Head>
+                <title key={"title"}>All Board Members - Admin | Dougies Guide</title>
+                <meta
+                    name={"description"}
+                    key={"description"}
+                    content={
+                        "Admin Area for our Board Members"
+                    }
+                />
+                <meta
+                    property={"og:title"}
+                    content={"Board Members | Board"}
+                    key={"og:title"}
+                />
+                <meta
+                    property={"og:url"}
+                    content={"dougiesguide.com/admin"}
+                    key={"og:url"}
+                />
+                <link
+                    rel="canonical"
+                    key={"canonical"}
+                    href={"https://dougiesguide.com/admin"}
+                />
+            </Head>
             <Grid
                 item
                 container

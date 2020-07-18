@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import BoardMemberForm from "../../../src/ui/forms/board/BoardMemberForm";
 import {fetchAllAdminsAndUsers} from "../../../src/store/actions/adminActions/adminUserActions";
 import {createBoardMember, fetchBoardRoles} from "../../../src/store/actions/adminActions/adminBoardActions";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
     // ADD STYLES HERE
@@ -49,6 +50,31 @@ const AddBoardMember = ({fetchAllAdminsAndUsers, fetchBoardRoles, allAdminsAndUs
     }, [fetchAllAdminsAndUsers, fetchBoardRoles])
     return (
         <Grid container justify={"center"} direction={"column"}>
+            <Head>
+                <title key={"title"}>Add Board Member - Admin | Dougies Guide</title>
+                <meta
+                    name={"description"}
+                    key={"description"}
+                    content={
+                        "Admin Area for our Board Members"
+                    }
+                />
+                <meta
+                    property={"og:title"}
+                    content={"Board Members | Board"}
+                    key={"og:title"}
+                />
+                <meta
+                    property={"og:url"}
+                    content={"dougiesguide.com/admin"}
+                    key={"og:url"}
+                />
+                <link
+                    rel="canonical"
+                    key={"canonical"}
+                    href={"https://dougiesguide.com/admin"}
+                />
+            </Head>
             <Grid item style={{marginTop: '1em'}}>
                 <BoardMemberForm allAdminsAndUsers={allAdminsAndUsers} boardRoles={boardRoles} setValue={setValue} createBoardMember={createBoardMember}/>
             </Grid>

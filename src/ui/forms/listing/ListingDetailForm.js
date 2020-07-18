@@ -94,7 +94,7 @@ const ListingDetailForm = ({  cancel,  handleSubmit, error, submitting }) => {
                 variant={'outlined'}
             >
               {states.map(state => (
-                  <MenuItem key={state.key} value={state.value}>{state.text}</MenuItem>
+                  <MenuItem key={state.key} value={state.text}>{state.text}</MenuItem>
               ))}
 
             </Field>

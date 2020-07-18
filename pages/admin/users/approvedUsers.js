@@ -5,6 +5,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import UserItem from "../../../src/ui/admin/UserItem";
 import { connect } from "react-redux";
 import Loader from "../../../src/ui/Loader";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
     userWrapper: {
@@ -45,6 +46,31 @@ const ApprovedUsers = ({ loading, fetchApprovedUsers, approvedUsers, toggleUserT
 
     return (
         <Grid container direction={"column"} alignItems={"center"}>
+            <Head>
+                <title key={"title"}>Users - Admin | Dougies Guide</title>
+                <meta
+                    name={"description"}
+                    key={"description"}
+                    content={
+                        "Admin Area for our Users"
+                    }
+                />
+                <meta
+                    property={"og:title"}
+                    content={"Users | User"}
+                    key={"og:title"}
+                />
+                <meta
+                    property={"og:url"}
+                    content={"dougiesguide.com/admin"}
+                    key={"og:url"}
+                />
+                <link
+                    rel="canonical"
+                    key={"canonical"}
+                    href={"https://dougiesguide.com/admin"}
+                />
+            </Head>
             <Grid
                 item
                 container

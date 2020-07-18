@@ -5,6 +5,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {connect} from "react-redux";
 import Loader from "../../../src/ui/Loader";
 import ListingItem from "../../../src/ui/admin/ListingItem";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
     listingsWrapper: {
@@ -46,6 +47,31 @@ const ApprovedListings = ({loading, fetchApprovedListings, approvedListings, tog
 
     return (
         <Grid container direction={"column"} alignItems={"center"}>
+            <Head>
+                <title key={"title"}>Listing - Admin | Dougies Guide</title>
+                <meta
+                    name={"description"}
+                    key={"description"}
+                    content={
+                        "Admin Area for our Listings"
+                    }
+                />
+                <meta
+                    property={"og:title"}
+                    content={"Listings | Listing"}
+                    key={"og:title"}
+                />
+                <meta
+                    property={"og:url"}
+                    content={"dougiesguide.com/admin"}
+                    key={"og:url"}
+                />
+                <link
+                    rel="canonical"
+                    key={"canonical"}
+                    href={"https://dougiesguide.com/admin"}
+                />
+            </Head>
             <Grid
                 item
                 container

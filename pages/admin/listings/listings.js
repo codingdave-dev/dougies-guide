@@ -14,6 +14,7 @@ import {
     fetchApprovedListings,
     fetchUnapprovedListings, toggleListingApproved
 } from "../../../src/store/actions/adminActions/adminListingActions";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
     // ADD STYLES HERE
@@ -82,6 +83,31 @@ const AdminListings = ({profile, fetchAllListings, fetchApprovedListings, fetchU
               alignItems={"center"}
               justify={"center"}
               style={{ marginTop: "1em" }}>
+            <Head>
+                <title key={"title"}>Listing - Admin | Dougies Guide</title>
+                <meta
+                    name={"description"}
+                    key={"description"}
+                    content={
+                        "Admin Area for our Listings"
+                    }
+                />
+                <meta
+                    property={"og:title"}
+                    content={"Listings | Listing"}
+                    key={"og:title"}
+                />
+                <meta
+                    property={"og:url"}
+                    content={"dougiesguide.com/admin"}
+                    key={"og:url"}
+                />
+                <link
+                    rel="canonical"
+                    key={"canonical"}
+                    href={"https://dougiesguide.com/admin"}
+                />
+            </Head>
 
             <Grid item>
                 <Tabs

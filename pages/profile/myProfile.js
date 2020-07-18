@@ -12,6 +12,7 @@ import format from "date-fns/format";
 import { openDialog } from "../../src/store/actions/dialogActions/dialogActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Router from "next/router";
+import Head from "next/head";
 
 const useStyles = makeStyles((theme) => ({
   spinner: {
@@ -78,6 +79,31 @@ const MyProfile = ({ loading, auth, profile, openDialog }) => {
     <Fragment>
       {authenticated && (
         <Grid container direction={"column"} alignItems={"center"}>
+          <Head>
+            <title key={"title"}>Users Profile | Dougies Guide</title>
+            <meta
+                name={"description"}
+                key={"description"}
+                content={
+                  "User Profile"
+                }
+            />
+            <meta
+                property={"og:title"}
+                content={"User Profile | Dougies Guide"}
+                key={"og:title"}
+            />
+            <meta
+                property={"og:url"}
+                content={"dougiesguide.com/profile/myProfile"}
+                key={"og:url"}
+            />
+            <link
+                rel="canonical"
+                key={"canonical"}
+                href={"https://dougiesguide.com/profile/myProfile"}
+            />
+          </Head>
           <Grid item>
             {loading && (
               <Grid

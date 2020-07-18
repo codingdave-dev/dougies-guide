@@ -5,7 +5,28 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
-    // ADD STYLES HERE
+    subTitle: {
+        [theme.breakpoints.down("md")]: {
+            fontSize: "2em",
+        },
+        [theme.breakpoints.down("sm")]: {
+            fontSize: "1.5em",
+        },
+        [theme.breakpoints.down("xs")]: {
+            fontSize: "1.3em",
+        },
+    },
+    text: {
+        [theme.breakpoints.down("md")]: {
+            fontSize: "1.2em",
+        },
+        [theme.breakpoints.down("sm")]: {
+            fontSize: "1em",
+        },
+        [theme.breakpoints.down("xs")]: {
+            fontSize: "0.9em",
+        },
+    },
 }));
 
 const ContactSuccess = () => {
@@ -15,10 +36,10 @@ const ContactSuccess = () => {
     return (
         <Grid container alignItems={"center"} direction={"column"} style={{marginTop: '4em'}}>
             <Grid item>
-                <Typography variant={'h2'}>Thank you for your message</Typography>
+                <Typography variant={'h3'} className={classes.subTitle}>Thank you for your message</Typography>
             </Grid>
-            <Grid item>
-                <Typography variant={'body1'}>We will be in contact with you shortly.</Typography>
+            <Grid item style={{marginTop: '2em'}}>
+                <Typography variant={'body1'} className={classes.text}>We will be in contact with you shortly.</Typography>
             </Grid>
         </Grid>
     );

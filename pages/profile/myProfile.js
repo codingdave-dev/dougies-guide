@@ -177,7 +177,7 @@ const MyProfile = ({ loading, auth, profile, openDialog }) => {
             </Grid>
 
             {/*BUTTONS*/}
-            {profile.provider === 'email' && (
+            {profile.provider === 'Email' && (
                 <Grid item>
                   <Grid
                       item
